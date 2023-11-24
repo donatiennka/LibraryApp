@@ -1,0 +1,179 @@
+/**Feuille de style du projet**/
+
+body, button {
+    font-family: 'Bebas Neue', cursive;
+    
+}
+
+main {
+    background: url('images/library.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+#lib-h {
+    text-align: center;    
+    background-color: #3b0a0a;    
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+h1 {
+    font-size: 7vh;
+    color: white;
+}
+
+p {
+    font-size: 3vh;
+    color: white;
+}
+
+#addDiv {
+    width: 15vh;
+    margin: auto;
+    margin-top: 5vh;
+}
+button {
+    width: 15vh;
+    height: 5vh;
+    color: #3b0a0a;
+    font-size: 3vh;
+    border-radius: 1vh;    
+}
+
+button:hover {
+    background: #3b0a0a;
+    border: 2px solid #fff;
+    color: #fff;
+  }
+
+#affichageTable {
+    scroll-behavior: auto;
+    border: solid 1px #b7bfff;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.tables {
+    background-color: rgba(183, 191, 255, .9);
+    
+    width: auto;
+    margin: auto;
+    font-size: 3vh;
+    border-radius: 3vh;
+    text-align: center;
+    box-shadow: black 2px 2px 10px;
+    
+}
+
+#libraryTable {
+    margin-top: 2vh;
+}
+
+th, td{
+    width: 25vh;
+    height: 7vh;
+    margin: auto;
+    padding-left: 2vh;
+}
+
+.book-frame {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 67vh;
+}
+
+.book-info {
+    width: 68%;
+    font-size: 2.5vh;
+}
+
+fieldset {
+    display: block;
+    border: solid 2px #b7bfff;
+    padding: 3px 6px;
+    margin-bottom: 10px;
+}
+
+legend {
+    display: block;
+    padding: 3px 6px;
+    font-size: 2vh;
+    color: #b7bfff;
+}
+
+#formElem {
+    line-height: 1.7;
+    padding-left: 10vh;
+    float: left;
+    
+}
+
+#formElem div {
+    text-align: justify;
+}
+
+.book-details {
+    margin-bottom: 15px;
+}
+
+.formText {
+    color: dimgray;
+        
+}
+
+.input {
+    height: 4vh;
+    width: 40vh;
+    margin: 1vh;     
+    font-family: 'Bebas Neue', cursive;
+}
+
+#bookresume {
+    width: 100%;
+    height: 80%;
+}
+
+.scroller {    
+    overflow: auto;    
+}
+
+#lib-f {
+    padding: 1em 5em 1em 5em;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#coverfield {
+    width: 30%;
+    height: 100%;
+}
+
+#detailsfield {
+    height: 60%;
+}
+
+#resumefield {
+    height: 38%;    
+}
+
+.book-frame img {
+    border: solid 3px #3b0a0a;
+    padding: 5px;
+    width: 90%;
+    height: 90%;
+    
+}
+
+#coverfield span {
+    padding-left: 15px;
+}
+
+form input {
+    text-transform: uppercase;
+}
