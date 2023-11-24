@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Font-family -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" 
+    crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" 
+    integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!-- Font Awesome (jeu d'icônes) -->
+        <script src="https://kit.fontawesome.com/14273d579a.js" crossorigin="anonymous"></script>
+    
+    <title>Library-Manager</title>    
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="container-fluid" id="lib-h">               
+            <h1>Library Management App</h1>
+            <p>Add your favourite books below! Without user authentication, this is a shared Library!</p>
+            <p>Use the button below to add new book to your library and watch your collection grow.</p>
+            <!-- Button trigger modal -->
+            <div id="addBoutDiv">
+                <button type="button" id="addButton" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    New book
+                </button>  
+            </div>                       
+        </div>
+    </header>
+    <main>
+        <section class="hero hero-bg-ready" style="min-height: 450px;">
+            <div class="hero-bacground">
+                <div class="hero-background-overlay" style="background-color: rgba(6, 3, 3, 0.1);"></div>
+            </div>
+            <div class="container" id="affichageTable">
+                <table class="tables">
+                    <tr>
+                        <td>title</td>
+                        <td>author</td>
+                        <td>pages</td>
+                        <td>read</td>
+                        <td>mark read</td>
+                        <td>show details</td>
+                    </tr>
+                </table>
+                <table id="libraryTable" class="tables">
+
+                </table>                
+            </div>            
+        </section> 
+        <!-- Button trigger modal book details-->
+        <div id="addBoutDiv">
+            <button type="button" id="addButton" data-bs-toggle="modal" data-bs-target="#displaybookdetails">
+                book details
+            </button>  
+        </div>               
+    </main>
+    <footer>
+        <div class="container-fluid bg-light" id="lib-f">
+            <span>©donatech 2023</span>
+            <span>
+                <a href="#" class="footer-icon" data-toggle="smooth-scroll" data-target="#page-start-anchor">
+                    <i class="material-icons">arrow_upward</i>back to top
+                </a>
+            </span>
+        </div>
+    </footer>
+  
+    <!-- Modal d'affichage du formulaire -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Add a new book ?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form novalidate>                                                           
+                        <div class="book-title book-details">
+                            <label for="title" class="form-label">Title</label>
+                            <input type="text" name="title" class="form-control" id="title" required> 
+                        </div>
+                        <div class="book-author book-details">
+                            <label for="author" class="form-label">Author</label>
+                            <input type="text" name="author" class="form-control" id="author" required>
+                        </div>
+                        <div class="book-genre book-details">
+                            <label for="genre" class="form-label">Genre</label>
+                            <select class="form-select" aria-label="Default select example" id="genre">
+                                <option selected>---</option>
+                                <option value="1">Biographie</option>
+                                <option value="2">Fantastique</option>
+                                <option value="3">Historique</option>
+                                <option value="4">Policier</option>
+                                <option value="5">Science-Fiction</option>
+                                <option value="6">Conte philosophique</option>
+                                <option value="7">Comédie</option>
+                                <option value="8">Littéraire</option>
+                                <option value="9">Scientifique</option>
+                                <option value="10">Autre</option>
+                            </select>            
+                        </div>
+                        <div class="book-editor book-details">
+                            <label for="editor" class="form-label">Editor</label>
+                            <input type="text" name="editor" class="form-control" id="editor">
+                        </div>
+                        <div class="book-pages book-details">
+                            <label for="pages" class="form-label">Pages</label>
+                            <input type="number" name="pages" class="form-control" id="pages" required>
+                        </div>
+                        <div class="book-year book-details">
+                            <label for="publication-year" class="form-label">publication year</label>
+                            <input type="month" name="publication-year" class="form-control" id="publication-year" required>
+                        </div>
+                        <div class="book-resume book-details">
+                            <label for="resume" class="form-label">Resume</label>        
+                            <textarea name="resune" id="resume" class="form-control" cols="" rows="5"></textarea>
+                        </div>
+                        <div class="book-price book-details">
+                            <label for="currency-field" class="form-label">price</label>
+                            <input type="text" name="currency-field" id="currency-field" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" 
+                            value="" data-type="currency" placeholder="3,485 FCFA">
+                        </div>
+                        <div class="book-cover book-details">
+                            <label for="cover-image" class="form-label">Upload book cover image</label>
+                            <input type="file" name="cover-image" class="form-control" accept=".jpg, .jpeg, .png" capture="user" id="cover-image">
+                        </div>
+                        
+                        <div class="form-check book-details">
+                            <input type="checkbox" class="form-check-input" value="yes" id="flexCheckDefault" checked>
+                            <label for="flexCheckDefault" class="form-check-label">
+                                Have you already read this book ?
+                            </label>
+                        </div>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button class="btn btn-primary" id="btnsubmit">Add this book</button>                            
+                    </form>
+                </div>
+                <div class="modal-footer">   
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal d'affichage des détails du livre sélectionné -->    
+    <div class="modal fade" id="displaybookdetails" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Book details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="display-details">
+                        <div class="book-frame">
+                            <fieldset id="coverfield">
+                                <legend>Book cover</legend>
+                                <span id="coverbook"><img src="images/image-default.jpg" alt="Couverture par défaut" class="img-fluid" /></span>
+                            </fieldset>                            
+                            <div class="book-info">
+                                <fieldset id="detailsfield">
+                                    <legend>Détails</legend>
+                                    <div id='formElem'>
+                                        <div>
+                                            <span class='formText'>Title :</span>
+                                            <span class="input" id="newTitle">les quatre</span> 
+                                        </div>
+                                        <div>
+                                            <span class='formText'>Author :</span>
+                                            <span class="input" id="newAuthor">Agatha Christie</span> 
+                                        </div>
+                                        <div>
+                                            <span class='formText'>Pages :</span>
+                                            <span class="input" id="newPages">241 pages</span> 
+                                        </div>
+                                        <div>
+                                            <span class='formText'>Genre :</span>
+                                            <span class="input" id="newGenre">Policier</span> 
+                                        </div>
+                                        <div>
+                                            <span class='formText'>Editor :</span>
+                                            <span class="input" id="newEditor">Hachette</span> 
+                                        </div>
+                                        <div>
+                                            <span class='formText'>publication-year :</span>
+                                            <span class="input" id="newPublicationYear">Mai 1972</span> 
+                                        </div>
+                                        <div>
+                                            <span class='formText'>Price :</span>
+                                            <span class="input" id="newPrice">3,415 fcfa</span> 
+                                        </div>
+                                        <div>
+                                            <span class='formText'>Registration date :</span>
+                                            <span class="input" id="newRegistrationDate">24/11/2023</span> 
+                                        </div>                                        
+                                        <span class='formText'></span>
+                                      </div>
+
+                                </fieldset>
+                                <fieldset id="resumefield">
+                                    <legend>Resume</legend>
+                                    <div class='input scroller' id="bookresume">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing
+elit. Aliquam nec sagittis massa. Nulla facilisi. Cras id arcu lorem, et
+semper purus. Cum sociis natoque penatibus et magnis dis parturient montes,
+nascetur ridiculus mus. Duis vel enim mi, in lobortis sem. Vestibulum
+luctus elit eu libero ultrices id fermentum sem sagittis. Nulla imperdiet
+mauris sed sapien dignissim id aliquam est aliquam. Maecenas non odio
+ipsum, a elementum nisi. Mauris non erat eu erat placerat convallis.
+                                    </div>
+                                </fieldset>  
+                            </div> 
+                        </div>                        
+                    </div>
+                </div>
+                <div class="modal-footer"> 
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-primary" id="btnmodifier">Edit book</button>
+                    <button class="btn btn-danger" id="btnsupprimer">Delete book</button>   
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" 
+    crossorigin="anonymous">
+    </script>
+</body>
+</html>
