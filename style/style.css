@@ -14,7 +14,8 @@ main {
 }
 
 #lib-h {
-    text-align: center;    
+    text-align: center;
+    /*background-color:rgba(128, 0, 0, 0.98);*/
     background-color: #3b0a0a;    
     padding-top: 15px;
     padding-bottom: 15px;
@@ -40,7 +41,8 @@ button {
     height: 5vh;
     color: #3b0a0a;
     font-size: 3vh;
-    border-radius: 1vh;    
+    border-radius: 1vh;
+    /*background-color: white;*/
 }
 
 button:hover {
@@ -138,6 +140,10 @@ legend {
     height: 80%;
 }
 
+#affichageTable {
+    height: 58vh;
+    
+}
 .scroller {    
     overflow: auto;    
 }
@@ -163,16 +169,88 @@ legend {
 }
 
 .book-frame img {
-    border: solid 3px #3b0a0a;
+    /*border: solid 3px #3b0a0a;*/
     padding: 5px;
     width: 90%;
     height: 90%;
     
 }
 
-#coverfield span {
+#coverfield div {
     padding-left: 15px;
 }
+
+
+
+/**************************************/
+
+
+/**
+.lib-h {
+    display: flex;
+    height: 226px;
+    background-color:rgba(128, 0, 0, 0.98);
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.lib-h span {
+    margin-top: 18px;
+    font-size: 4em;
+    font-weight: 700;
+    color: white;
+    text-align: center;
+}
+
+.lib-h p {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+
+
+.hero-background {
+    z-index:5;
+    visibility:hidden
+}
+
+.zone-canvas {
+    background-color: blueviolet;
+}
+
+.table-info table {
+    border-radius: 20px;
+    margin-bottom: 10px;
+}
+
+/* table générée de la liste des livres */
+/*.book-list table {
+    display: flex;
+    flex-direction: column;
+    font-weight: lighter;
+    text-transform: uppercase;
+    font-family:  Impact;
+    font-size: 15px;
+    border-radius: 15px;
+}
+
+.book-list tr, .table-info tr {
+    background: rgba(153, 205, 50, .5);
+}
+
+.book-list span td, .table-info td {
+   text-align: center;
+    width: 200px;
+    padding: 10px;
+}
+
+.table-info td {
+    font-size: 18px;
+    font-family:  'Impact';
+    text-transform: uppercase;
+    
+}*/
 
 form input {
     text-transform: uppercase;
