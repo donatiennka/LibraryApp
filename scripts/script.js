@@ -26,3 +26,29 @@ function writeUserData() {
   
     renderTable()
   }
+
+//on récupére l'emplacement html ou sera affiché le tableau de livres
+const table = document.getElementById('libraryTable');
+
+/**
+ * cette fonction est un constructeur d'objet de type livre
+ */
+function newBook(title, author, genre, editor, pages, 
+    pub_year, resume, price, cover, read, today) {
+
+    this.title = title;
+    this.author = author;
+    this.genre = genre;
+    this.pages = pages;
+    this.editor = editor;    
+    this.pub_year = pub_year;
+    this.resume = resume;
+    this.price = price;
+    this.cover = cover;
+    this.read = read;
+    this.regdate = today;
+  
+  //on evoie le nouveau livre dans la librairie
+  myLibrary.push(this);
+  writeUserData();
+}
