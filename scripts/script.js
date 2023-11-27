@@ -14,3 +14,15 @@ dbRefObject.on('value', snap => {
   syncData()
   renderTable()
 })
+
+/**
+ * Cette fonction enregistre myLibrary dans la firebase
+ * et appele l'affichage de la table des livres
+ */
+function writeUserData() {
+    firebase.database().ref('Books').set({
+      myLibrary
+    });
+  
+    renderTable()
+  }
