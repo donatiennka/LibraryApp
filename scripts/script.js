@@ -93,3 +93,13 @@ function recordDate() {
   let sec = tjrs2Chiffres(date.getSeconds());
   return `${day}/${month}/${year} at ${hour}:${minutes}:${sec}`
 }
+
+/**
+ * Cette fonction permet d'obtenir le bon chemin du fichier
+ */
+function getPath(cover) {
+  let path = cover;
+  let filename = path.replace(/^C:\\fakepath\\/, "");
+  //console.log(filename);
+  return filename
+}
