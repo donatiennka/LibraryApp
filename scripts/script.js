@@ -79,3 +79,17 @@ const genreLiteraire = {
 function tjrs2Chiffres(nb) {
   return (nb < 10) ? "0" + nb : nb
 }
+
+/**
+ * Cette fonction renvoie la date du moment où elle est appelée   
+ */
+function recordDate() {
+  let date = new Date();
+  let day = tjrs2Chiffres(date.getDate());
+  let month = tjrs2Chiffres(date.getMonth()+1);
+  let year = date.getFullYear();
+  let hour = tjrs2Chiffres(date.getHours());
+  let minutes = tjrs2Chiffres(date.getMinutes()); 
+  let sec = tjrs2Chiffres(date.getSeconds());
+  return `${day}/${month}/${year} at ${hour}:${minutes}:${sec}`
+}
