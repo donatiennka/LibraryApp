@@ -53,3 +53,29 @@ myLibrary.push(this);
 writeUserData();
 
 }
+
+// on charge notre librairie à partir du cloud
+let myLibrary = cloudLibData;
+
+//correspondance valeur - genre litéraire
+const genreLiteraire = {
+  1:'Biographie', 
+  2:'Fantastique', 
+  3:'Historique',
+  4:'Policier',
+  5:'Science-Fiction',
+  6:'Conte philosophique',
+  7:'Comédie',
+  8:'Littéraire',
+  9:'Scientifique',
+  10:'Autre',
+}
+
+/**
+ * Cette fonction fait en sorte que même en dessous de 10 on garde 
+ * deux chiffres, en insérant un zéro à la gauche du chiffre restant
+ * @param {number} nb : un nombre quelconque  
+ */
+function tjrs2Chiffres(nb) {
+  return (nb < 10) ? "0" + nb : nb
+}
