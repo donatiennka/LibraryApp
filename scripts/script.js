@@ -4,15 +4,15 @@ const dbRefObject = firebase.database().ref().child('Books')
 let cloudLib = {};
 let cloudLibData = [];
 //variable globale pour l'index du livre
-let idBook ='';
+let idBook;
 
 dbRefObject.on('value', snap => {
-  //console.log(snap.val())
-  cloudLib = snap.val();
-  cloudLibData = cloudLib["myLibrary"];
-  let myLibrary = cloudLibData;
-  syncData()
-  renderTable()
+    //console.log(snap.val())
+    cloudLib = snap.val();
+    cloudLibData = cloudLib["myLibrary"];
+    let myLibrary = cloudLibData;
+    syncData()
+    renderTable()
 })
 
 /**
@@ -25,7 +25,17 @@ function writeUserData() {
     });
   
     renderTable()
-  }
+}
+
+/**
+ * Cette fonction permet la synchronisation entre la librairie stockée
+ * dans le cloud et la livrairie qui est manipulé par l'utilisateur
+ */
+function syncData() {
+    for (i = 0; i < cloudLibData.length; i++) {
+      myLibrary[i] = cloudLibData[i]
+    }
+}
 
 //on récupére l'emplacement html ou sera affiché le tableau de livres
 const table = document.getElementById('libraryTable');
@@ -36,21 +46,21 @@ const table = document.getElementById('libraryTable');
 function newBook(title, author, genre, editor, pages, 
   pub_year, resume, price, cover, instock='Yes', today) {
 
-  this.title = title;
-  this.author = author;
-  this.genre = genre;
-  this.pages = pages;
-  this.editor = editor;    
-  this.pub_year = pub_year;
-  this.resume = resume;
-  this.price = price;
-  this.cover = cover;
-  this.instock = instock;
-  this.regdate = today;
+    this.title = title;
+    this.author = author;
+    this.genre = genre;
+    this.pages = pages;
+    this.editor = editor;    
+    this.pub_year = pub_year;
+    this.resume = resume;
+    this.price = price;
+    this.cover = cover;
+    this.instock = instock;
+    this.regdate = today;
 
-//on evoie le nouveau livre dans la librairie
-myLibrary.push(this);
-writeUserData();
+    //on evoie le nouveau livre dans la librairie
+    myLibrary.push(this);
+    writeUserData();
 
 }
 
@@ -59,16 +69,16 @@ let myLibrary = cloudLibData;
 
 //correspondance valeur - genre litéraire
 const genreLiteraire = {
-  1:'Biographie', 
-  2:'Fantastique', 
-  3:'Historique',
-  4:'Policier',
-  5:'Science-Fiction',
-  6:'Conte philosophique',
-  7:'Comédie',
-  8:'Littéraire',
-  9:'Scientifique',
-  10:'Autre',
+    1:'Biographie', 
+    2:'Fantastique', 
+    3:'Historique',
+    4:'Policier',
+    5:'Science-Fiction',
+    6:'Conte philosophique',
+    7:'Comédie',
+    8:'Littéraire',
+    9:'Scientifique',
+    10:'Autre',
 }
 
 /**
@@ -77,29 +87,30 @@ const genreLiteraire = {
  * @param {number} nb : un nombre quelconque  
  */
 function tjrs2Chiffres(nb) {
-  return (nb < 10) ? "0" + nb : nb
+    return (nb < 10) ? "0" + nb : nb
 }
 
 /**
  * Cette fonction renvoie la date du moment où elle est appelée   
  */
 function recordDate() {
-  let date = new Date();
-  let day = tjrs2Chiffres(date.getDate());
-  let month = tjrs2Chiffres(date.getMonth()+1);
-  let year = date.getFullYear();
-  let hour = tjrs2Chiffres(date.getHours());
-  let minutes = tjrs2Chiffres(date.getMinutes()); 
-  let sec = tjrs2Chiffres(date.getSeconds());
-  return `${day}/${month}/${year} at ${hour}:${minutes}:${sec}`
+    let date = new Date();
+    let day = tjrs2Chiffres(date.getDate());
+    let month = tjrs2Chiffres(date.getMonth()+1);
+    let year = date.getFullYear();
+    let hour = tjrs2Chiffres(date.getHours());
+    let minutes = tjrs2Chiffres(date.getMinutes()); 
+    let sec = tjrs2Chiffres(date.getSeconds());
+    return `${day}/${month}/${year} at ${hour}:${minutes}:${sec}`
 }
 
 /**
  * Cette fonction permet d'obtenir le bon chemin du fichier
  */
 function getPath(cover) {
-  let path = cover;
-  let filename = path.replace(/^C:\\fakepath\\/, "");
-  //console.log(filename);
-  return filename
+    let path = cover;
+    let filename = path.replace(/^C:\\fakepath\\/, "");
+    //console.log(filename);
+    return filename
 }
+
