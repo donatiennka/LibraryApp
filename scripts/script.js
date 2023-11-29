@@ -304,14 +304,22 @@ function validerPages(pages) {
 /////////////////////////GESTIONNAIRE D'EVENEMENTS////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 // Gestion de l'événement submit sur le formulaire d'ajout de livre. 
-let form = document.querySelector(".modal-body form")
+let form = document.querySelector(".modal-body form");
+viderFormulaire();
 form.addEventListener("submit", (event) => {
-    event.preventDefault()
-    //console.log("Add this book")
-    addBookToLibrary()
-    let closeForn = document.querySelector(".btn-close") 
-    closeForn.click()
+    event.preventDefault();
+    //console.log("Add this book");
+    addBookToLibrary();
+    let closeForn = document.querySelector(".btn-close"); 
+    closeForn.click();
     
+})
+
+// Gestion de l'événement cancel sur le formulaire d'ajout de livre. 
+let cancelform = document.getElementById("btncancel");
+cancelform.addEventListener("click", () => {
+    //event.preventDefault();    
+    viderFormulaire(); 
 })
 
 // Gestion de l'événement sur le bouton delete book 
