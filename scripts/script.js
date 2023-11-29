@@ -134,3 +134,37 @@ function renderTable() {
   
 }
 
+/**
+ * Cette fonction extrait les données venant du formulaire d'ajout
+ * de nouveau puis appelle le constructeur d'objet pour un nouveau livre
+ * à la fin de l'opération, elle vide le formulaire
+ */
+function addBookToLibrary () { 
+  try {
+    let newTitle = validerSaisie(document.getElementById('title').value);
+    //est ce que un livre ayant ce titre est déjà enregistré dans la librairie ?
+    comparerTitre(newTitle);
+    let newAuthor = validerSaisie(document.getElementById('author').value);
+    let newGenre = document.getElementById('genre').value;
+    let newEditor = validerSaisie(document.getElementById('editor').value);
+    let newPages = validerPages(document.getElementById('pages').value);
+    let newPub_year = document.getElementById('publication-year').value;
+    let newResune = document.getElementById('resume').value;
+    let newPrice = document.getElementById('currency-field').value;    
+    let newCover = document.getElementById('cover-image').value;
+    let newStock = document.getElementById('flexCheckDefault').value;
+    let newRegdate = recordDate();    
+    newCover = getPath(newCover);
+    //console.log(newCover);
+    new newBook(newTitle, newAuthor, newGenre, newEditor, newPages, newPub_year,
+      newResune, newPrice, newCover, newStock, newRegdate);
+    //on vide les champs du formulaire
+    viderFormulaire();
+  }catch(erreur) {
+        viderFormulaire();
+        window.alert(erreur.message);
+        //console.log(erreur.message);         
+    }  
+
+}
+
