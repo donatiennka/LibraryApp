@@ -210,6 +210,20 @@ function showDetails(index) {
 }
 
 /**
+ * Cette fonction permet rempli le formulaire de modification
+ */
+function editBookAttribut(index) {  
+  document.getElementById('edittitle').value = myLibrary[index].title;
+  document.getElementById('editauthor').value = myLibrary[index].author;
+  document.getElementById('editpages').value = myLibrary[index].pages;
+  document.getElementById('editeditor').value = myLibrary[index].editor;
+  document.getElementById('editgenre').value = myLibrary[index].genre;  
+  document.getElementById('editresume').value = myLibrary[index].resume;
+  document.getElementById('editcurrency-field').value = myLibrary[index].price;
+  document.getElementById('editcover-image').value = myLibrary[index].cover;
+}
+
+/**
  * Cette fonction permet d'indiquer si un livre est disponible
  * (Yes) ou pas (No)
  * @param {number} index 
