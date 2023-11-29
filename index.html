@@ -56,8 +56,8 @@
                         <td>title</td>
                         <td>author</td>
                         <td>pages</td>
-                        <td>read</td>
-                        <td>mark read</td>
+                        <td>available</td>
+                        <td>check stock</td>
                         <td>show details</td>
                     </tr>
                 </table>
@@ -65,13 +65,7 @@
 
                 </table>                
             </div>            
-        </section> 
-        <!-- Button trigger modal book details
-        <div id="addBoutDiv">
-            <button type="button" id="addButton" data-bs-toggle="modal" data-bs-target="#displaybookdetails">
-                book details
-            </button>  
-        </div>-->               
+        </section>                       
     </main>
     <footer>
         <div class="container-fluid bg-light" id="lib-f">
@@ -86,21 +80,21 @@
   
     <!-- Modal d'affichage du formulaire -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="staticBackdropLabel">Add a new book ?</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form novalidate>                                                           
+                    <form class="needs-validation" novalidate>                                                           
                         <div class="book-title book-details">
                             <label for="title" class="form-label">Title</label>
-                            <input type="text" name="title" class="form-control" id="title" required> 
+                            <input type="text" name="title" class="form-control input-requered" id="title" required> 
                         </div>
                         <div class="book-author book-details">
                             <label for="author" class="form-label">Author</label>
-                            <input type="text" name="author" class="form-control" id="author" required>
+                            <input type="text" name="author" class="form-control input-requered" id="author" required>
                         </div>
                         <div class="book-genre book-details">
                             <label for="genre" class="form-label">Genre</label>
@@ -120,15 +114,15 @@
                         </div>
                         <div class="book-editor book-details">
                             <label for="editor" class="form-label">Editor</label>
-                            <input type="text" name="editor" class="form-control" id="editor">
+                            <input type="text" name="editor" class="form-control input-requered" id="editor" required>
                         </div>
                         <div class="book-pages book-details">
                             <label for="pages" class="form-label">Pages</label>
-                            <input type="number" name="pages" class="form-control" id="pages" required>
+                            <input type="number" name="pages" class="form-control input-requered" id="pages" required>
                         </div>
                         <div class="book-year book-details">
                             <label for="publication-year" class="form-label">publication year</label>
-                            <input type="month" name="publication-year" class="form-control" id="publication-year" required>
+                            <input type="month" name="publication-year" class="form-control" id="publication-year">
                         </div>
                         <div class="book-resume book-details">
                             <label for="resume" class="form-label">Resume</label>        
@@ -136,7 +130,7 @@
                         </div>
                         <div class="book-price book-details">
                             <label for="currency-field" class="form-label">price</label>
-                            <input type="text" name="currency-field" id="currency-field" class="form-control" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" 
+                            <input type="text" name="currency-field" id="currency-field" class="form-control" 
                             value="" data-type="currency" placeholder="3,485 FCFA">
                         </div>
                         <div class="book-cover book-details">
@@ -149,11 +143,11 @@
                         <div class="form-check book-details">
                             <input type="checkbox" class="form-check-input" value="yes" id="flexCheckDefault">
                             <label for="flexCheckDefault" class="form-check-label">
-                                Have you already read this book ?
+                                Is this book available ?
                             </label>
                         </div>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button class="btn btn-primary" id="btnsubmit">Add this book</button>                            
+                        <button class="btn btn-primary" id="btnsubmit" disabled>Add this book</button>                            
                     </form>
                 </div>
                 <div class="modal-footer">   
@@ -183,31 +177,33 @@
                                     <div id='formElem'>
                                         <div>
                                             <span class='formText'>Title :</span>
-                                            <span class="input" id="newTitle">les quatre</span> 
+                                            <!--<input type="text" name="title" class="form-control" id="newTitle" disabled>-->
+                                            <span class="input" id="newTitle">les quatre</span>                                             
                                         </div>
                                         <div>
                                             <span class='formText'>Author :</span>
-                                            <span class="input" id="newAuthor">Agatha Christie</span> 
+                                            <span class="input" id="newAuthor">Agatha Christie</span>                                             
                                         </div>
                                         <div>
                                             <span class='formText'>Pages :</span>
-                                            <span class="input" id="newPages">241 pages</span> 
+                                            <span class="input" id="newPages">241 pages</span>                                             
                                         </div>
                                         <div>
                                             <span class='formText'>Genre :</span>
-                                            <span class="input" id="newGenre">Policier</span> 
+                                            <span class="input" id="newGenre">Policier</span>
+                                            <span class="input" id="editGenre"></span> 
                                         </div>
                                         <div>
                                             <span class='formText'>Editor :</span>
-                                            <span class="input" id="newEditor">Hachette</span> 
+                                            <span class="input" id="newEditor">Hachette</span>                                             
                                         </div>
                                         <div>
                                             <span class='formText'>publication-year :</span>
-                                            <span class="input" id="newPublicationYear">Mai 1972</span> 
+                                            <span class="input" id="newPublicationYear">Mai 1972</span>                                             
                                         </div>
                                         <div>
                                             <span class='formText'>Price :</span>
-                                            <span class="input" id="newPrice">3,415 fcfa</span> 
+                                            <span class="input" id="newPrice">3,415 fcfa</span>                                            
                                         </div>
                                         <div>
                                             <span class='formText'>Registration date :</span>
@@ -228,6 +224,7 @@ luctus elit eu libero ultrices id fermentum sem sagittis. Nulla imperdiet
 mauris sed sapien dignissim id aliquam est aliquam. Maecenas non odio
 ipsum, a elementum nisi. Mauris non erat eu erat placerat convallis.
                                     </div>
+                                    <span class="input" id="editResume"></span>
                                 </fieldset>  
                             </div> 
                         </div>                        
@@ -235,12 +232,69 @@ ipsum, a elementum nisi. Mauris non erat eu erat placerat convallis.
                 </div>
                 <div class="modal-footer"> 
                     <button type="button" class="btn btn-secondary" id="close-me" data-bs-dismiss="modal">Close</button>
-                    <button class="btn btn-primary" id="btnmodifier">Edit book</button>
+                    <button class="btn btn-primary" id="btnmodifier" data-bs-toggle='modal' data-bs-target='#popupeditbookatribute'>Edit book</button>
                     <button class="btn btn-danger del-book" id="btnsupprimer">Delete book</button>   
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Modal de modification d'un livre -->
+    <div class="modal fade" id="popupeditbookatribute" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modaltitle">Edit this book ?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="edit-form" novalidate>                                                   
+                        <div class="book-title editFormModel">                                                            
+                            <input type="text" name="title" class="form-control" id="edittitle" disabled> 
+                        </div>
+                        <div class="book-author editFormModel">                                
+                            <input type="text" name="author" class="form-control" id="editauthor" >
+                        </div>
+                        <div class="book-genre editFormModel">                                
+                            <select class="form-select" aria-label="Default select example" id="editgenre">
+                                <option selected>---</option>
+                                <option value="1">Biographie</option>
+                                <option value="2">Fantastique</option>
+                                <option value="3">Historique</option>
+                                <option value="4">Policier</option>
+                                <option value="5">Science-Fiction</option>
+                                <option value="6">Conte philosophique</option>
+                                <option value="7">Comédie</option>
+                                <option value="8">Littéraire</option>
+                                <option value="9">Scientifique</option>
+                                <option value="10">Autre</option>
+                            </select>            
+                        </div>
+                        <div class="book-editor editFormModel">                                
+                            <input type="text" name="editor" class="form-control" id="editeditor">
+                        </div>
+                        <div class="book-pages editFormModel">                                
+                            <input type="number" name="pages" class="form-control" id="editpages">
+                        </div>                        
+                        <div class="book-resume editFormModel">                                        
+                            <textarea name="resune" id="editresume" class="form-control" cols="" rows="5"></textarea>
+                        </div>
+                        <div class="book-price editFormModel">                                
+                            <input type="text" name="currency-field" id="editcurrency-field" class="form-control" 
+                            value="" data-type="currency" placeholder="3,485 FCFA">
+                        </div>
+                        <div class="book-cover editFormModel">                            
+                            <input type="file" name="cover-image" class="form-control" accept=".jpg, .jpeg, .png" capture="user" id="editcover-image">                                
+                        </div>                        
+                    </form>    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="modaleditclose">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="savechanges">Save changes</button>
+                </div>
+            </div>
+        </div>
+      </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" 
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" 
@@ -267,3 +321,4 @@ ipsum, a elementum nisi. Mauris non erat eu erat placerat convallis.
 
 </body>
 </html>
+
