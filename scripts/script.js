@@ -213,15 +213,35 @@ function showDetails(index) {
  * Cette fonction permet rempli le formulaire de modification
  */
 function editBookAttribut(index) {  
-  document.getElementById('edittitle').value = myLibrary[index].title;
-  document.getElementById('editauthor').value = myLibrary[index].author;
-  document.getElementById('editpages').value = myLibrary[index].pages;
-  document.getElementById('editeditor').value = myLibrary[index].editor;
-  document.getElementById('editgenre').value = myLibrary[index].genre;  
-  document.getElementById('editresume').value = myLibrary[index].resume;
-  document.getElementById('editcurrency-field').value = myLibrary[index].price;
-  document.getElementById('editcover-image').value = myLibrary[index].cover;
+    document.getElementById('edittitle').value = myLibrary[index].title;
+    document.getElementById('editauthor').value = myLibrary[index].author;
+    document.getElementById('editpages').value = myLibrary[index].pages;
+    document.getElementById('editeditor').value = myLibrary[index].editor;
+    document.getElementById('editgenre').value = myLibrary[index].genre;  
+    document.getElementById('editresume').value = myLibrary[index].resume;
+    document.getElementById('editcurrency-field').value = myLibrary[index].price;
+    document.getElementById('editcover-image').value = myLibrary[index].cover;
 }
+
+/**
+ * cette fonction permet de sauvegarder les modifications des propriétés 
+ * du livre selectionné
+ */
+function saveChanges(index) {
+    myLibrary[index].author = document.getElementById('editauthor').value;
+    myLibrary[index].pages = document.getElementById('editpages').value;
+    myLibrary[index].editor = document.getElementById('editeditor').value;
+    myLibrary[index].genre = document.getElementById('editgenre').value;
+    editingresume = document.getElementById('editresume').value;
+    if (editingresume) {
+        myLibrary[index].resume = editingresume;
+    };
+    editingprice = document.getElementById('editcurrency-field').value;
+    if (editingprice) {
+        myLibrary[index].price = editingprice;
+    };
+    myLibrary[index].cover = document.getElementById('editcover-image').value;
+} 
 
 /**
  * Cette fonction permet d'indiquer si un livre est disponible
