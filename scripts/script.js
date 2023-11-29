@@ -140,7 +140,9 @@ function addBookToLibrary () {
         let newResune = document.getElementById('resume').value;
         let newPrice = document.getElementById('currency-field').value;    
         let newCover = document.getElementById('cover-image').value;
-        let newStock = document.getElementById('flexCheckDefault').value;
+        //let newStock = document.getElementById('flexCheckDefault').value;
+        //set newStock default value at 'Yes' 
+        let newStock = 'Yes';
         let newRegdate = recordDate();    
         newCover = getPath(newCover);
         //console.log(newCover);
@@ -229,6 +231,8 @@ function saveChanges(index) {
         myLibrary[index].price = editingprice;
     };
     myLibrary[index].cover = document.getElementById('editcover-image').value;
+    //ensuite on met à jour l'affichage de la table
+    writeUserData()
 } 
 
 /**
@@ -263,10 +267,6 @@ function deleteRow(index) {
     //ensuite on met à jour l'affichage de la table
     writeUserData()
 }
-
-
-
-
 
 //////////////////////////////////////////////////////////////////////////////
 /////////////////////////GESTION VALIDITE DU FORMULAIRE///////////////////////
