@@ -168,3 +168,18 @@ function addBookToLibrary () {
 
 }
 
+/**
+ * Cette fonction permet de réinitialiser le formulaire
+ */
+function viderFormulaire() {
+  document.getElementById('title').value = '';
+  document.getElementById('author').value = '';
+  document.getElementById('pages').value = '';
+  document.getElementById('editor').value = '';
+  document.getElementById('genre').value = '';
+  document.getElementById('publication-year').value = '';
+  document.getElementById('resume').value = '';
+  document.getElementById('currency-field').value = '';
+  document.getElementById('cover-image').value = '';
+}
+
