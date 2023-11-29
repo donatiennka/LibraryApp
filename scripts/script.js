@@ -242,3 +242,57 @@ function deleteRow(index) {
     writeUserData()
 }
 
+/**
+ * Cette fonction s'assure à ce qu'on n'enregistre pas des livres
+ * ayant des titres idendiques
+ */
+function comparerTitre(newTitre) {
+    for (let i = 0; i < myLibrary.length; i++) {
+        if(newTitre === myLibrary[i].title){
+            throw new Error("La bibliothèque possède déjà un livre de titre identique.")
+        }
+    }
+}
+
+/**
+ * Cette fonction formate le prix du livre en lui ajoutant
+ * une device ou en affichant N/A si le prix n'est pas fourni
+ * @param {number} indice : index du livre dans la librairie 
+ */
+function formaterPrix(indice) {
+    let prix = myLibrary[indice].price
+    return (!prix) ? prix : `${prix} FCFA`  
+}
+
+//////////////////////////////////////////////////////////////////////////////
+/////////////////////////GESTION VALIDITE DU FORMULAIRE///////////////////////
+//////////////////////////////////////////////////////////////////////////////
+/**
+ * Cette fonction prend un nom en paramètre et valide qu'il est au bon format
+ * ici : deux caractères au minimum
+ * @param {string} nom 
+ * @throws {Error}
+ */
+function validerSaisie(saisie) {
+    let saisieRegExp = new RegExp("[a-zA-Zçàéèê0-9._-]{2,}")
+    if (!saisieRegExp.test(saisie)) {
+        throw new Error("Veuillez à bien remplir le formulaire.")
+    }else{
+        return saisie
+    } 
+}
+
+/**
+* Cette fonction prend un nombre en paramètre et valide qu'il est au bon format. 
+* @param {number} pages 
+* @throws {Error}
+*/
+function validerPages(pages) {
+    let pagesRegExp = new RegExp("[0-9]+")
+    if (!pagesRegExp.test(pages)) {
+        throw new Error("Le nombre de pages n'est pas valide.")
+    }else{
+        return pages
+    }   
+}
+
