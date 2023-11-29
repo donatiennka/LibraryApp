@@ -135,17 +135,8 @@
                         </div>
                         <div class="book-cover book-details">
                             <label for="cover-image" class="form-label">Upload book cover image</label>
-                            <input type="file" name="cover-image" class="form-control" accept=".jpg, .jpeg, .png" capture="user" id="cover-image">
-                            <!--<input type="file" name="cover-image" id="cover-image" accept=".jpg, .jpeg, .png" 
-                            onchange="document.getElementById('file_name').value = this.value.split('\\').pop().split('/').pop()">-->
-                        </div>
-                        
-                        <div class="form-check book-details">
-                            <input type="checkbox" class="form-check-input" value="yes" id="flexCheckDefault">
-                            <label for="flexCheckDefault" class="form-check-label">
-                                Is this book available ?
-                            </label>
-                        </div>
+                            <input type="file" name="cover-image" class="form-control" accept=".jpg, .jpeg, .png" capture="user" id="cover-image">                            
+                        </div>                                    
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                         <button class="btn btn-primary" id="btnsubmit" disabled>Add this book</button>                            
                     </form>
