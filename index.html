@@ -141,7 +141,7 @@
                             <label for="cover-image" class="form-label">Upload book cover image</label>
                             <input type="file" name="cover-image" class="form-control" accept=".jpg, .jpeg, .png" capture="user" id="cover-image">                            
                         </div>                                    
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="btncancel" >Cancel</button>
                         <button class="btn btn-primary" id="btnsubmit" disabled>Add this book</button>                            
                     </form>
                 </div>
@@ -313,7 +313,7 @@ ipsum, a elementum nisi. Mauris non erat eu erat placerat convallis.
         firebase.initializeApp(firebaseConfig);
         var db = firebase.database();
     </script>
+    
 
 </body>
 </html>
-
