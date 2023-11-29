@@ -183,6 +183,31 @@ function viderFormulaire() {
     document.getElementById('cover-image').value = '';
 }
 
+/**
+ * Cette fonction est appellée pour afficher les détails de l'objet livre
+ * dans une modal réservée à cette effet
+ * @param {number} index : numéro du livre donc les détails doivent être affichés
+ */
+function showDetails(index) {
+    idBook = ''
+    document.getElementById('newTitle').innerText = myLibrary[index].title;
+    document.getElementById('newAuthor').innerText = myLibrary[index].author;
+    document.getElementById('newPages').innerText = myLibrary[index].pages;
+    document.getElementById('newGenre').innerText = genreLiteraire[myLibrary[index].genre];
+    document.getElementById('newEditor').innerText = myLibrary[index].editor;
+    document.getElementById('newPublicationYear').innerText = myLibrary[index].pub_year;
+    document.getElementById('newPrice').innerText = formaterPrix(index);
+    document.getElementById('bookresume').innerText = myLibrary[index].resume;
+    document.getElementById('newRegistrationDate').innerText = myLibrary[index].regdate;     
+    document.getElementById('coverbook').innerHTML = `<img src="images/no-image.png"
+    class='img-fluid' alt='Page de couverture' />`;
+    //let cover_book = document.getElementById("coverbook");
+    //let image = document.createElement("img");
+    //image.src = `"${srcimage}"`;
+    //cover_book.appendChild(image)
+    
+    idBook = index
+}
 
 /**
  * Cette fonction permet d'indiquer si un livre est disponible
