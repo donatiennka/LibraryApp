@@ -1,4 +1,7 @@
-//persistance sur firestore
+//////////////////////////////////////////////////////////////////////////////
+/////////////////////////PERSISTANCE SUR FIRESTORE////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+
 const dbRefObject = firebase.database().ref().child('Books')
 
 let cloudLib = {};
@@ -37,6 +40,10 @@ function syncData() {
     }
 }
 
+
+//////////////////////////////////////////////////////////////////////////////
+/////////////////////////FONCTIONS PRINCIPALE DE L'APPLI//////////////////////
+//////////////////////////////////////////////////////////////////////////////
 //on récupére l'emplacement html ou sera affiché le tableau de livres
 const table = document.getElementById('libraryTable');
 
@@ -82,15 +89,6 @@ const genreLiteraire = {
 }
 
 /**
- * Cette fonction fait en sorte que même en dessous de 10 on garde 
- * deux chiffres, en insérant un zéro à la gauche du chiffre restant
- * @param {number} nb : un nombre quelconque  
- */
-function tjrs2Chiffres(nb) {
-    return (nb < 10) ? "0" + nb : nb
-}
-
-/**
  * Cette fonction renvoie la date du moment où elle est appelée   
  */
 function recordDate() {
@@ -102,16 +100,6 @@ function recordDate() {
     let minutes = tjrs2Chiffres(date.getMinutes()); 
     let sec = tjrs2Chiffres(date.getSeconds());
     return `${day}/${month}/${year} at ${hour}:${minutes}:${sec}`
-}
-
-/**
- * Cette fonction permet d'obtenir le bon chemin du fichier
- */
-function getPath(cover) {
-    let path = cover;
-    let filename = path.replace(/^C:\\fakepath\\/, "");
-    //console.log(filename);
-    return filename
 }
 
 /**
@@ -276,27 +264,9 @@ function deleteRow(index) {
     writeUserData()
 }
 
-/**
- * Cette fonction s'assure à ce qu'on n'enregistre pas des livres
- * ayant des titres idendiques
- */
-function comparerTitre(newTitre) {
-    for (let i = 0; i < myLibrary.length; i++) {
-        if(newTitre === myLibrary[i].title){
-            throw new Error("La bibliothèque possède déjà un livre de titre identique.")
-        }
-    }
-}
 
-/**
- * Cette fonction formate le prix du livre en lui ajoutant
- * une device ou en affichant N/A si le prix n'est pas fourni
- * @param {number} indice : index du livre dans la librairie 
- */
-function formaterPrix(indice) {
-    let prix = myLibrary[indice].price
-    return (!prix) ? prix : `${prix} FCFA`  
-}
+
+
 
 //////////////////////////////////////////////////////////////////////////////
 /////////////////////////GESTION VALIDITE DU FORMULAIRE///////////////////////
@@ -330,11 +300,9 @@ function validerPages(pages) {
     }   
 }
 
-
 //////////////////////////////////////////////////////////////////////////////
 /////////////////////////GESTIONNAIRE D'EVENEMENTS////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-
 // Gestion de l'événement submit sur le formulaire d'ajout de livre. 
 let form = document.querySelector(".modal-body form")
 form.addEventListener("submit", (event) => {
@@ -396,3 +364,73 @@ inputrequired.addEventListener("input", function () {
     btnaddbook.disabled = false
     //console.log(inputrequired.value)    
 })
+
+//////////////////////////////////////////////////////////////////////////////
+/////////////////////////FONCTIONS UTILITAIRES DE L'APPLI/////////////////////
+//////////////////////////////////////////////////////////////////////////////
+
+/**
+ * Cette fonction fait en sorte que même en dessous de 10 on garde 
+ * deux chiffres, en insérant un zéro à la gauche du chiffre restant
+ * @param {number} nb : un nombre quelconque  
+ */
+function tjrs2Chiffres(nb) {
+    return (nb < 10) ? "0" + nb : nb
+}
+
+/**
+ * Cette fonction permet d'obtenir le bon chemin du fichier
+ */
+function getPath(cover) {
+    let path = cover;
+    let filename = path.replace(/^C:\\fakepath\\/, "");
+    //console.log(filename);
+    return filename
+}
+
+/**
+ * Cette fonction s'assure à ce qu'on n'enregistre pas des livres
+ * ayant des titres idendiques
+ */
+function comparerTitre(newTitre) {
+  for (let i = 0; i < myLibrary.length; i++) {
+      if(newTitre === myLibrary[i].title){
+          throw new Error("La bibliothèque possède déjà un livre de titre identique.")
+      }
+  }
+}
+
+/**
+ * Cette fonction formate le prix du livre en lui ajoutant
+ * une device ou en affichant N/A si le prix n'est pas fourni
+ * @param {number} indice : index du livre dans la librairie 
+ */
+function formaterPrix(indice) {
+    let prix = myLibrary[indice].price
+    return (!prix) ? prix : `${prix} FCFA`  
+}
+
+///////////////////////////////////////////////////////////
+// Example starter JavaScript for disabling form submissions 
+//if there are invalid fields
+/*
+(function () {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
+*/
