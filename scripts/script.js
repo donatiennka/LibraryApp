@@ -330,3 +330,69 @@ function validerPages(pages) {
     }   
 }
 
+
+//////////////////////////////////////////////////////////////////////////////
+/////////////////////////GESTIONNAIRE D'EVENEMENTS////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+
+// Gestion de l'événement submit sur le formulaire d'ajout de livre. 
+let form = document.querySelector(".modal-body form")
+form.addEventListener("submit", (event) => {
+    event.preventDefault()
+    //console.log("Add this book")
+    addBookToLibrary()
+    let closeForn = document.querySelector(".btn-close") 
+    closeForn.click()
+    
+})
+
+// Gestion de l'événement sur le bouton delete book 
+let deletebook = document.getElementById('btnsupprimer')
+deletebook.addEventListener("click", () => {
+    
+    console.log("delete this book")    
+    console.log(idBook)
+    
+    if (window.confirm("Souhaitez-vous vraiment supprimer ce livre ?")) {
+      deleteRow(idBook);
+    }    
+    let closeModal = document.getElementById("close-me") 
+    closeModal.click()
+    
+})
+
+// Gestion de l'événement sur le bouton Edit book 
+let editbook = document.getElementById('btnmodifier')
+editbook.addEventListener("click", () => {  
+    
+    editBookAttribut(idBook);    
+    
+})
+
+// Gestion de l'événement sur le bouton save changes 
+let modifier = document.getElementById('savechanges')
+modifier.addEventListener("click", () => {
+    //event.preventDefault()       
+    //console.log(idBook)
+    if (window.confirm("Souhaitez-vous vraiment modifier ce livre ?")) {
+      saveChanges(idBook);
+    }    
+    let closepopup = document.getElementById("modaleditclose") 
+    closepopup.click()
+    // affichage de la table mise à jour 
+    renderTable()   
+      
+})
+
+// Ajout d'un listener à notre balise input titre du formulaire add book
+const inputrequired = document.getElementById("title");
+
+// On ajoute un listener de type input qui permet de recupérer une valeur dans 
+// le champ input sans avoir besoin de clicker sur validé
+inputrequired.addEventListener("input", function () {    
+    let btnaddbook = document.querySelector(".modal-body form #btnsubmit");
+    //on active le bouton add this book si une saisie est opérée sur la balise 
+    //input du champs titre.
+    btnaddbook.disabled = false
+    //console.log(inputrequired.value)    
+})
