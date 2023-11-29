@@ -4,14 +4,14 @@ body, button {
     font-family: 'Bebas Neue', sans-serif;
     
 }
-
+/*
 main {
     background: url('images/library.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-}
+}*/
 
 #lib-h {
     text-align: center;
