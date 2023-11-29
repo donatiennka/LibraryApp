@@ -1,7 +1,7 @@
 /**Feuille de style du projet**/
 
 body, button {
-    font-family: 'Bebas Neue', cursive;
+    font-family: 'Bebas Neue', sans-serif;
     
 }
 
@@ -45,11 +45,29 @@ button {
     /*background-color: white;*/
 }
 
-button:hover {
+.btnModif {
+    width: 10vh;
+    height: 3vh;
+    text-transform: capitalize;
+    font-style: italic;
+    background: none;
+    color: blue;
+    font-size: 2vh;
+    border: 0;
+    border-radius: 0;
+}
+
+button:hover {    
     background: #3b0a0a;
     border: 2px solid #fff;
     color: #fff;
-  }
+}
+
+.btnModif:hover {
+    background: none;
+    text-decoration: underline;
+    color: red;
+}
 
 #affichageTable {
     scroll-behavior: auto;
@@ -119,7 +137,13 @@ legend {
     text-align: justify;
 }
 
-.book-details {
+.book-details {    
+    margin-bottom: 15px;
+}
+
+.editFormModel {
+    display: flex;
+    flex-direction: row;
     margin-bottom: 15px;
 }
 
@@ -179,78 +203,6 @@ legend {
 #coverfield div {
     padding-left: 15px;
 }
-
-
-
-/**************************************/
-
-
-/**
-.lib-h {
-    display: flex;
-    height: 226px;
-    background-color:rgba(128, 0, 0, 0.98);
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-.lib-h span {
-    margin-top: 18px;
-    font-size: 4em;
-    font-weight: 700;
-    color: white;
-    text-align: center;
-}
-
-.lib-h p {
-    font-size: 20px;
-    font-weight: 500;
-}
-
-
-
-.hero-background {
-    z-index:5;
-    visibility:hidden
-}
-
-.zone-canvas {
-    background-color: blueviolet;
-}
-
-.table-info table {
-    border-radius: 20px;
-    margin-bottom: 10px;
-}
-
-/* table générée de la liste des livres */
-/*.book-list table {
-    display: flex;
-    flex-direction: column;
-    font-weight: lighter;
-    text-transform: uppercase;
-    font-family:  Impact;
-    font-size: 15px;
-    border-radius: 15px;
-}
-
-.book-list tr, .table-info tr {
-    background: rgba(153, 205, 50, .5);
-}
-
-.book-list span td, .table-info td {
-   text-align: center;
-    width: 200px;
-    padding: 10px;
-}
-
-.table-info td {
-    font-size: 18px;
-    font-family:  'Impact';
-    text-transform: uppercase;
-    
-}*/
 
 form input {
     text-transform: uppercase;
