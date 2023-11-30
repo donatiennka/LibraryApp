@@ -426,8 +426,35 @@ function getLibraryLength() {
     let nbrlivre = myLibrary.length;
     let librarylenght = cloudLibData.length;
     document.getElementById('nbrdelivre').innerText = `livres_affiché = ${nbrlivre}/${librarylenght}`
-  }
+}
 
+/**
+ * Cette fonction se charge de renvoyer la liste d'un attribut
+ * en partitulier. Par exemple la liste de tous les titre des
+ * livres présents dans la librairie.
+ * @param {string} myattr : le nom de l'attribut souhaité
+ * @returns 
+ */
+function getBookAttribute (myattr) {
+        let valattr = myattr.toLowerCase();    
+        const objAttrBook = {
+        author : myLibrary.map(book => book.author),
+        genre : myLibrary.map(book => book.genre),
+        editor : myLibrary.map(book => book.editor),
+        available : myLibrary.map(book => book.instock)   
+        };     
+        const newTab = [];
+        for(let i=0; i<objAttrBook[valattr].length; i++) {
+            //on s'assure de me pas mettre dans la nouvelle
+            //liste plus d'une fois le même élément    
+        if(!newTab.includes(objAttrBook[valattr][i])){
+            newTab.push(objAttrBook[valattr][i]);
+        };
+        }
+        //console.log(objAttrBook[valattr]);
+        return newTab;
+  }
+  
 ///////////////////////////////////////////////////////////
 // Example starter JavaScript for disabling form submissions 
 //if there are invalid fields
