@@ -418,6 +418,16 @@ function formaterPrix(indice) {
     return (!prix) ? prix : `${prix} FCFA`  
 }
 
+
+/**
+ * Cette fonction affiche la taille de la librairie
+ */
+function getLibraryLength() {    
+    let nbrlivre = myLibrary.length;
+    let librarylenght = cloudLibData.length;
+    document.getElementById('nbrdelivre').innerText = `livres_affiché = ${nbrlivre}/${librarylenght}`
+  }
+
 ///////////////////////////////////////////////////////////
 // Example starter JavaScript for disabling form submissions 
 //if there are invalid fields
