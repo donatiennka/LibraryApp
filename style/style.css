@@ -78,8 +78,8 @@ button:hover {
 
 .tables {
     background-color: rgba(183, 191, 255, .7);
-    
-    width: auto;
+    table-layout: fixed;
+    width: 100%;
     margin: auto;
     font-size: 3vh;
     border-radius: 3vh;
@@ -87,6 +87,8 @@ button:hover {
     box-shadow: black 2px 2px 10px;
     
 }
+
+
 
 #libraryTable {
     margin-top: 2vh;
