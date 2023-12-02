@@ -102,20 +102,31 @@ function recordDate() {
     return `${day}/${month}/${year} at ${hour}:${minutes}:${sec}`
 }
 
+//on crée une variable globale qui recevra les index de la librairie
+let tableOfIndex;
+
 /**
  * Cette fonction crée la table des livres 
  * elle est appelé chaque fois que le la librairie est modifiée
  */
-function renderTable() {
+function renderTable() {  
     //on efface la zone dans laquelle la table doit être placée
     table.innerHTML = ''
-    for (let index = 0; index < cloudLibData.length; index++) {
+    //on réinitialise la tables des index
+    tableOfIndex = [];
+    for (let index = 0; index < cloudLibData.length; index++) {    
+        tableOfIndex.push(index);
         let newRow = table.insertRow(index);
+        //on ajoute un listener à chaque ligne de la table
+        newRow.addEventListener("click", () => {
+            //on change la coleur du text de la ligne selectionnée
+            changeLineColor(index);     
+        });
         newRow.insertCell(0).innerText = cloudLibData[index].title;
         newRow.insertCell(1).innerText = cloudLibData[index].author;
         newRow.insertCell(2).innerText = cloudLibData[index].pages;
         newRow.insertCell(3).innerHTML = `<span id='instock${index}'>${cloudLibData[index].instock}</span>`;
-        newRow.insertCell(4).innerHTML = `<button onclick='bookAvailable(${index})' class='tableButtons'>Check</button>`;    
+        newRow.insertCell(4).innerHTML = `<button onclick='bookAvailable(${index})' class='tableButtons'>Check</button>`;
         newRow.insertCell(5).innerHTML = `<button onclick='showDetails(${index})' class='tableButtons' 
         data-bs-toggle='modal' data-bs-target='#displaybookdetails'>details</button>`
     }
