@@ -120,7 +120,7 @@ function renderTable() {
         //on ajoute un listener à chaque ligne de la table
         newRow.addEventListener("click", () => {
             //on change la coleur du text de la ligne selectionnée
-            changeLineColor(index);     
+            changeSelectedLineColor(index);     
         });
         newRow.insertCell(0).innerText = cloudLibData[index].title;
         newRow.insertCell(1).innerText = cloudLibData[index].author;
@@ -471,7 +471,7 @@ function getBookAttribute (myattr) {
  * la ligne selectionnée jusqu'à ce qu'une autre  ligne le soit.
  * @param {number} index : id de la ligne selectionnée
  */
-function changeLineColor(index) {  
+function changeSelectedLineColor(index) {  
     let allrows = document.getElementById('libraryTable');
     let rows = allrows.getElementsByTagName('tr');
     //console.log(tableOfIndex);
