@@ -465,6 +465,24 @@ function getBookAttribute (myattr) {
         //console.log(objAttrBook[valattr]);
         return newTab;
   }
+
+/**
+ * Cette fonction permet de changer la couleur du text de 
+ * la ligne selectionnée jusqu'à ce qu'une autre  ligne le soit.
+ * @param {number} index : id de la ligne selectionnée
+ */
+function changeLineColor(index) {  
+    let allrows = document.getElementById('libraryTable');
+    let rows = allrows.getElementsByTagName('tr');
+    //console.log(tableOfIndex);
+    for (let i = 0; i < tableOfIndex.length; i++) {
+        if(index != tableOfIndex[i]) {
+            rows[i].style.color = "black";
+        }else{
+            rows[i].style.color = "yellow";
+        }
+    }  
+}
   
 ///////////////////////////////////////////////////////////
 // Example starter JavaScript for disabling form submissions 
