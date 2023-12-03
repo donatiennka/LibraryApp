@@ -9,14 +9,16 @@ let cloudLibData = [];
 let libTemporaire = [];
 //variable globale pour l'index du livre
 let idBook;
+let globVar;
 
 dbRefObject.on('value', snap => {
     //console.log(snap.val())
     cloudLib = snap.val();
     cloudLibData = cloudLib["myLibrary"];
     let myLibrary = cloudLibData;
-    syncData()
-    renderTable()
+    libTemporaire = myLibrary;
+    syncData();
+    renderTable();
 })
 
 /**
@@ -131,7 +133,7 @@ function renderTable(bookList=cloudLibData) {
         tableOfIndex.push(index);
         let newRow = table.insertRow(index);
         newRow.addEventListener("click", () => {
-            changeLineColor(index);     
+            changeSelectedLineColor(index);     
         });
         newRow.insertCell(0).innerText = bookList[index].title;
         newRow.insertCell(1).innerText = bookList[index].author;
@@ -398,6 +400,21 @@ inputrequired.addEventListener("input", function () {
 })
 
 
+//on crée et rempli la combobox du tri 
+let triselect = document.getElementById('triage');
+triselect.innerHTML = '';
+const ordredetri = ['---', 'a_z', 'z_a','pages_up', 'pages_down', 'date_up', 'date_down'];
+let tricombo = document.createElement('select');
+triselect.appendChild(fillComboOptions(ordredetri, tricombo));
+
+//on crée et rempli la combobox des filtres
+let filtreselect = document.getElementById('filtrage');
+filtreselect.innerHTML = '';
+const listefiltre = ['---', 'author', 'genre', 'editor', 'available'];
+let filtrecombo = document.createElement('select');
+filtreselect.appendChild(fillComboOptions(listefiltre, filtrecombo));
+
+
 //on crée un variable globale pour l'étiquette du filtre
 let etiqkfiltr;
 //on ajoute un listener sur l'élément donc d'id est "filtrage"
@@ -557,20 +574,6 @@ function changeSelectedLineColor(index) {
         }
     }  
 }
-
-//on crée et rempli la combobox du tri 
-let triselect = document.getElementById('triage');
-triselect.innerHTML = '';
-const ordredetri = ['---', 'a_z', 'z_a','pages_up', 'pages_down', 'date_up', 'date_down'];
-let tricombo = document.createElement('select');
-triselect.appendChild(fillComboOptions(ordredetri, tricombo));
-
-//on crée et rempli la combobox des filtres
-let filtreselect = document.getElementById('filtrage');
-filtreselect.innerHTML = '';
-const listefiltre = ['---', 'author', 'genre', 'editor', 'available'];
-let filtrecombo = document.createElement('select');
-filtreselect.appendChild(fillComboOptions(listefiltre, filtrecombo));
 
 /**
  * Cette fonction rempli nos combo box
