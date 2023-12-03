@@ -557,7 +557,6 @@ function changeSelectedLineColor(index) {
     }  
 }
 
-
 //on crée et rempli la combobox du tri 
 let triselect = document.getElementById('triage');
 triselect.innerHTML = '';
@@ -617,6 +616,19 @@ function filterMyLibrary(filtr, nomfiltr) {
             }
         }
     }
+}
+
+/**
+ * Cette fonction met à jour la librairie temporaire après le trie
+ * pour affichage
+ * @param {*} newtab : tableau resultat du tri effectué
+ */
+function updateLibTemp(newtab) {
+    //on vide la libTemporaire
+    libTemporaire = [];
+    for (let i = 0; i < newtab.length; i++) {
+        libTemporaire.push(newtab[i]);
+    }  
 }
 
 ///////////////////////////////////////////////////////////
