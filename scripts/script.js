@@ -521,22 +521,42 @@ function fillComboOptions(tab, comboElt, testElt='') {
         let opt;
         //console.log("contenu: "+testElt);
         if(testElt == "genre") {     
-          if(valeur == '---') {
-            opt = new Option('---', '---', true, true);
-          }else{
-            opt = new Option(genreLiteraire[valeur], genreLiteraire[valeur], false, false);
-          }       
+            if(valeur == '---') {
+                opt = new Option('---', '---', true, true);
+            }else{
+                opt = new Option(genreLiteraire[valeur], genreLiteraire[valeur], false, false);
+            }       
         }else{
-          if(valeur == '---') {
-          opt = new Option(valeur, valeur, true, true);
-          }else{
-            opt = new Option(valeur, valeur, false, false);
-          }
+            if(valeur == '---') {
+            opt = new Option(valeur, valeur, true, true);
+            }else{
+                opt = new Option(valeur, valeur, false, false);
+            }
         }            
         comboElt.options[comboElt.options.length] = opt;
     }
     return comboElt;
-  } 
+} 
+
+/**
+ * Cette fonction va se chargée des opérations de filtrage des livres
+ * en fonction des arguments qui lui seront passés en paramètre
+ * @param {*} filtr 
+ * @param {*} nomfiltr 
+ */
+function filterMyLibrary(filtr, nomfiltr) {
+    if(filtr != "---") {  
+        libTemporaire = [];
+        if(filtr == "available") { filtr = "instock" };
+        if(filtr == "genre") { nomfiltr = reverseGreLite[nomfiltr] };
+        for(let i=0; i<myLibrary.length; i++) {
+            if(myLibrary[i][filtr] == nomfiltr){
+            //console.log("point test : rouge");
+            libTemporaire.push(myLibrary[i]);
+            }
+        }
+    }
+}
 
 ///////////////////////////////////////////////////////////
 // Example starter JavaScript for disabling form submissions 
