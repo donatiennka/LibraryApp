@@ -23,7 +23,8 @@
         <!-- Font Awesome (jeu d'icônes) -->
         <script src="https://kit.fontawesome.com/14273d579a.js" crossorigin="anonymous"></script>
     
-    <title>Library-Manager</title>    
+    <title>Library-Manager</title> 
+    <script src="scripts/config.js" defer></script>   
     <script src="scripts/script.js" defer></script>
 
     <!-- Firebase -->
@@ -74,12 +75,32 @@
     </main>
     <footer>
         <div class="container-fluid bg-light" id="lib-f">
-            <span>©donatech 2023</span>
-            <span>
-                <a href="#" class="footer-icon" data-toggle="smooth-scroll" data-target="#page-start-anchor">
-                    <i class="material-icons">arrow_upward</i>back to top
-                </a>
-            </span>
+            <div class="row"></div>
+                <div class="col-1">
+                    <div class="trifiltre triage-tab">
+                        <span class="zonelabel">Sort</span>
+                        <span id="triage"></span>                                   
+                    </div>
+                </div>
+                
+                <div class="col-1">
+                    <div class="trifiltre filtrage-tab">
+                        <span class="zonelabel">filter</span>
+                        <span id="filtrage"></span>
+                    </div>
+                </div>
+                 
+                <div class="col-2 trifiltre">
+                    <span id="quelfiltre"></span>
+                    <span id="nomdufiltre"></span>                    
+                </div>                
+                <div class="col-2">                    
+                    <div id="nbrdelivre"></div>
+                </div>
+                <div class="col-2">
+                   <span>©donatech 2023</span> 
+                </div>                
+            </div>           
         </div>
     </footer>
   
