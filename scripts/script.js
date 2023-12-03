@@ -88,6 +88,19 @@ const genreLiteraire = {
     10:'Autre',
 }
 
+const reverseGreLite = {
+    'Biographie': 1, 
+    'Fantastique': 2, 
+    'Historique': 3,
+    'Policier': 4,
+    'Science-Fiction': 5,
+    'Conte philosophique': 6,
+    'Comédie': 7,
+    'Littéraire': 8,
+    'Scientifique': 9,
+    'Autre': 10,
+  } 
+
 /**
  * Cette fonction renvoie la date du moment où elle est appelée   
  */
@@ -109,29 +122,29 @@ let tableOfIndex;
  * Cette fonction crée la table des livres 
  * elle est appelé chaque fois que le la librairie est modifiée
  */
-function renderTable() {  
+function renderTable(bookList=cloudLibData) {  
     //on efface la zone dans laquelle la table doit être placée
     table.innerHTML = ''
-    //on réinitialise la tables des index
     tableOfIndex = [];
-    for (let index = 0; index < cloudLibData.length; index++) {    
-        tableOfIndex.push(index);
-        let newRow = table.insertRow(index);
-        //on ajoute un listener à chaque ligne de la table
-        newRow.addEventListener("click", () => {
-            //on change la coleur du text de la ligne selectionnée
-            changeSelectedLineColor(index);     
-        });
-        newRow.insertCell(0).innerText = cloudLibData[index].title;
-        newRow.insertCell(1).innerText = cloudLibData[index].author;
-        newRow.insertCell(2).innerText = cloudLibData[index].pages;
-        newRow.insertCell(3).innerHTML = `<span id='instock${index}'>${cloudLibData[index].instock}</span>`;
-        newRow.insertCell(4).innerHTML = `<button onclick='bookAvailable(${index})' class='tableButtons'>Check</button>`;
-        newRow.insertCell(5).innerHTML = `<button onclick='showDetails(${index})' class='tableButtons' 
-        data-bs-toggle='modal' data-bs-target='#displaybookdetails'>details</button>`
+    for (let index = 0; index < bookList.length; index++) {    
+      tableOfIndex.push(index);
+      let newRow = table.insertRow(index);
+      newRow.addEventListener("click", () => {
+        changeLineColor(index);     
+      });
+      //newRow.classList.add("all-lines");
+      //newRow.classList.add(`"line${index}"`);
+      newRow.insertCell(0).innerText = bookList[index].title;
+      newRow.insertCell(1).innerText = bookList[index].author;
+      newRow.insertCell(2).innerText = bookList[index].pages;
+      newRow.insertCell(3).innerHTML = `<span id='instock${index}'>${bookList[index].instock}</span>`;
+      newRow.insertCell(4).innerHTML = `<button onclick='bookAvailable(${index})' class='tableButtons'>Check</button>`;
+      //newRow.insertCell(5).innerHTML = `<button onclick='deleteRow(${index})' class='tableButtons' >Delete</button>`
+      newRow.insertCell(5).innerHTML = `<button onclick='showDetails(${index})' class='tableButtons' 
+      data-bs-toggle='modal' data-bs-target='#displaybookdetails'>details</button>`
     }
-  
-}
+    getLibraryLength();
+  }
 
 /**
  * Cette fonction extrait les données venant du formulaire d'ajout
