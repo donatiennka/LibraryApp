@@ -495,7 +495,22 @@ function changeSelectedLineColor(index) {
         }
     }  
 }
-  
+
+
+//on crée et rempli la combobox du tri 
+let triselect = document.getElementById('triage');
+triselect.innerHTML = '';
+const ordredetri = ['---', 'a_z', 'z_a','pages_up', 'pages_down', 'date_up', 'date_down'];
+let tricombo = document.createElement('select');
+triselect.appendChild(fillComboOptions(ordredetri, tricombo));
+
+//on crée et rempli la combobox des filtres
+let filtreselect = document.getElementById('filtrage');
+filtreselect.innerHTML = '';
+const listefiltre = ['---', 'author', 'genre', 'editor', 'available'];
+let filtrecombo = document.createElement('select');
+filtreselect.appendChild(fillComboOptions(listefiltre, filtrecombo));
+
 ///////////////////////////////////////////////////////////
 // Example starter JavaScript for disabling form submissions 
 //if there are invalid fields
