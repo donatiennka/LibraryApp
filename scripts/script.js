@@ -127,24 +127,22 @@ function renderTable(bookList=cloudLibData) {
     table.innerHTML = ''
     tableOfIndex = [];
     for (let index = 0; index < bookList.length; index++) {    
-      tableOfIndex.push(index);
-      let newRow = table.insertRow(index);
-      newRow.addEventListener("click", () => {
-        changeLineColor(index);     
-      });
-      //newRow.classList.add("all-lines");
-      //newRow.classList.add(`"line${index}"`);
-      newRow.insertCell(0).innerText = bookList[index].title;
-      newRow.insertCell(1).innerText = bookList[index].author;
-      newRow.insertCell(2).innerText = bookList[index].pages;
-      newRow.insertCell(3).innerHTML = `<span id='instock${index}'>${bookList[index].instock}</span>`;
-      newRow.insertCell(4).innerHTML = `<button onclick='bookAvailable(${index})' class='tableButtons'>Check</button>`;
-      //newRow.insertCell(5).innerHTML = `<button onclick='deleteRow(${index})' class='tableButtons' >Delete</button>`
-      newRow.insertCell(5).innerHTML = `<button onclick='showDetails(${index})' class='tableButtons' 
-      data-bs-toggle='modal' data-bs-target='#displaybookdetails'>details</button>`
+        tableOfIndex.push(index);
+        let newRow = table.insertRow(index);
+        newRow.addEventListener("click", () => {
+            changeLineColor(index);     
+        });
+        newRow.insertCell(0).innerText = bookList[index].title;
+        newRow.insertCell(1).innerText = bookList[index].author;
+        newRow.insertCell(2).innerText = bookList[index].pages;
+        newRow.insertCell(3).innerHTML = `<span id='instock${index}'>${bookList[index].instock}</span>`;
+        newRow.insertCell(4).innerHTML = `<button onclick='bookAvailable(${index})' class='tableButtons'>Check</button>`;      
+        newRow.insertCell(5).innerHTML = `<button onclick='showDetails(${index})' class='tableButtons' 
+        data-bs-toggle='modal' data-bs-target='#displaybookdetails'>details</button>`
     }
+    //on appelle l'affichage du nombre de livre
     getLibraryLength();
-  }
+}
 
 /**
  * Cette fonction extrait les données venant du formulaire d'ajout
@@ -204,24 +202,25 @@ function viderFormulaire() {
  */
 function showDetails(index) {
     idBook = ''
-    document.getElementById('newTitle').innerText = myLibrary[index].title;
-    document.getElementById('newAuthor').innerText = myLibrary[index].author;
-    document.getElementById('newPages').innerText = myLibrary[index].pages;
-    document.getElementById('newGenre').innerText = genreLiteraire[myLibrary[index].genre];
-    document.getElementById('newEditor').innerText = myLibrary[index].editor;
-    document.getElementById('newPublicationYear').innerText = myLibrary[index].pub_year;
+    document.getElementById('newTitle').innerText = libTemporaire[index].title;
+    document.getElementById('newAuthor').innerText = libTemporaire[index].author;
+    document.getElementById('newPages').innerText = libTemporaire[index].pages;
+    document.getElementById('newGenre').innerText = genreLiteraire[libTemporaire[index].genre];
+    document.getElementById('newEditor').innerText = libTemporaire[index].editor;
+    document.getElementById('newPublicationYear').innerText = libTemporaire[index].pub_year;
     document.getElementById('newPrice').innerText = formaterPrix(index);
-    document.getElementById('bookresume').innerText = myLibrary[index].resume;
-    document.getElementById('newRegistrationDate').innerText = myLibrary[index].regdate;     
+    document.getElementById('bookresume').innerText = libTemporaire[index].resume;
+    document.getElementById('newRegistrationDate').innerText = libTemporaire[index].regdate;
+    //let srcimage = myLibrary[index].cover;
+    //console.log(getPath(srcimage));  
     document.getElementById('coverbook').innerHTML = `<img src="images/no-image.png"
     class='img-fluid' alt='Page de couverture' />`;
     //let cover_book = document.getElementById("coverbook");
     //let image = document.createElement("img");
     //image.src = `"${srcimage}"`;
-    //cover_book.appendChild(image)
-    
+    //cover_book.appendChild(image)    
     idBook = index
-}
+  }
 
 /**
  * Cette fonction permet rempli le formulaire de modification
