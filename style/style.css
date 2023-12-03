@@ -240,11 +240,15 @@ form input {
 .trifiltre {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .trifiltre select {
     width: 15vh;
+}
+
+#nomdufiltre select {
+    width: 20vh;
 }
 
 footer {
