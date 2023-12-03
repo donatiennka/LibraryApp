@@ -511,6 +511,33 @@ const listefiltre = ['---', 'author', 'genre', 'editor', 'available'];
 let filtrecombo = document.createElement('select');
 filtreselect.appendChild(fillComboOptions(listefiltre, filtrecombo));
 
+/**
+ * Cette fonction rempli nos combo box
+ */
+function fillComboOptions(tab, comboElt, testElt='') {
+    while(tab.length)
+    {
+        let valeur = tab.pop();
+        let opt;
+        //console.log("contenu: "+testElt);
+        if(testElt == "genre") {     
+          if(valeur == '---') {
+            opt = new Option('---', '---', true, true);
+          }else{
+            opt = new Option(genreLiteraire[valeur], genreLiteraire[valeur], false, false);
+          }       
+        }else{
+          if(valeur == '---') {
+          opt = new Option(valeur, valeur, true, true);
+          }else{
+            opt = new Option(valeur, valeur, false, false);
+          }
+        }            
+        comboElt.options[comboElt.options.length] = opt;
+    }
+    return comboElt;
+  } 
+
 ///////////////////////////////////////////////////////////
 // Example starter JavaScript for disabling form submissions 
 //if there are invalid fields
