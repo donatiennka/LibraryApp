@@ -235,3 +235,20 @@ legend {
 form input {
     text-transform: uppercase;
 }
+
+
+.trifiltre {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.trifiltre select {
+    width: 15vh;
+}
+
+footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
