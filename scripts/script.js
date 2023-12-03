@@ -6,6 +6,7 @@ const dbRefObject = firebase.database().ref().child('Books')
 
 let cloudLib = {};
 let cloudLibData = [];
+let libTemporaire = [];
 //variable globale pour l'index du livre
 let idBook;
 
