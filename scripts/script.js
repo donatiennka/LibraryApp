@@ -432,6 +432,31 @@ selectlefiltre.addEventListener("change", () => {
     };  
 })  
 
+//Gestion de l'événement sur la combobox de triage
+const letriage = document.querySelector('#triage select');
+// Ajout du listener pour trier les livres
+letriage.addEventListener("change", () => {
+    //console.log("point test : entrée");
+    const livresOrdonnees = Array.from(libTemporaire);
+    
+    let nomtri = letriage.value.toLowerCase();
+    if(nomtri == 'a_z') {
+        livresOrdonnees.sort((a, b) => a.title.localeCompare(b.title));
+    }else if(nomtri == 'z_a') {
+        livresOrdonnees.sort((a, b) => b.title.localeCompare(a.title));
+    }else if(nomtri == 'date_down') {
+        livresOrdonnees.sort((a, b) => a.pub_year - b.pub_year);
+    }else if(nomtri == 'date_up') {
+        livresOrdonnees.sort((a, b) => b.pub_year - a.pub_year);
+    }else if (nomtri == 'pages_down') {
+        livresOrdonnees.sort((a, b) => a.pages - b.pages);
+    }else if(nomtri == 'pages_up') {
+        livresOrdonnees.sort((a, b) => b.pages - a.pages)
+    }         
+    updateLibTemp(livresOrdonnees);
+    renderTable(libTemporaire);   
+});
+
 //////////////////////////////////////////////////////////////////////////////
 /////////////////////////FONCTIONS UTILITAIRES DE L'APPLI/////////////////////
 //////////////////////////////////////////////////////////////////////////////
