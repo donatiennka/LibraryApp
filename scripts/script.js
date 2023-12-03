@@ -396,6 +396,42 @@ inputrequired.addEventListener("input", function () {
     //console.log(inputrequired.value)    
 })
 
+
+//on crée un variable globale pour l'étiquette du filtre
+let etiqkfiltr;
+//on ajoute un listener sur l'élément donc d'id est "filtrage"
+let selectlefiltre = document.querySelector('#filtrage select');
+selectlefiltre.addEventListener("change", () => {
+ 
+    //console.log(selectlefiltre.value);
+    let monfiltre = document.getElementById('quelfiltre');
+    monfiltre.innerText = '';
+    if(selectlefiltre.value != "---") {
+        monfiltre.innerText = `Select ${selectlefiltre.value} :`;
+        globVar =  selectlefiltre.value.toLowerCase();
+    etiqkfiltr = globVar;
+    let f = document.getElementById('nomdufiltre');
+    f.innerHTML = '';
+    //const colors = ['red', 'green', 'blue', 'yellow'];
+    let val = getBookAttribute(selectlefiltre.value);
+    val.push('---');
+    //console.log(val);
+    
+    let combo = document.createElement('select');
+    f.appendChild(fillComboOptions(val, combo, selectlefiltre.value));
+    combo.addEventListener("change", () => {
+        //on fait appel à la fonction de filtrage    
+        filterMyLibrary(etiqkfiltr, combo.value);
+        // on rafraichi l'affichage de l'écran
+        renderTable(libTemporaire);        
+    })
+    //returnlistofauthor();
+    }else{ 
+        libTemporaire = myLibrary;
+        renderTable(libTemporaire);
+    };  
+})  
+
 //////////////////////////////////////////////////////////////////////////////
 /////////////////////////FONCTIONS UTILITAIRES DE L'APPLI/////////////////////
 //////////////////////////////////////////////////////////////////////////////
