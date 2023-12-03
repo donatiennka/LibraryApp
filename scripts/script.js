@@ -220,20 +220,20 @@ function showDetails(index) {
     //image.src = `"${srcimage}"`;
     //cover_book.appendChild(image)    
     idBook = index
-  }
+}
 
 /**
  * Cette fonction permet rempli le formulaire de modification
  */
 function editBookAttribut(index) {  
-    document.getElementById('edittitle').value = myLibrary[index].title;
-    document.getElementById('editauthor').value = myLibrary[index].author;
-    document.getElementById('editpages').value = myLibrary[index].pages;
-    document.getElementById('editeditor').value = myLibrary[index].editor;
-    document.getElementById('editgenre').value = myLibrary[index].genre;  
-    document.getElementById('editresume').value = myLibrary[index].resume;
-    document.getElementById('editcurrency-field').value = myLibrary[index].price;
-    document.getElementById('editcover-image').value = myLibrary[index].cover;
+    document.getElementById('edittitle').value = libTemporaire[index].title;
+    document.getElementById('editauthor').value = libTemporaire[index].author;
+    document.getElementById('editpages').value = libTemporaire[index].pages;
+    document.getElementById('editeditor').value = libTemporaire[index].editor;
+    document.getElementById('editgenre').value = libTemporaire[index].genre;  
+    document.getElementById('editresume').value = libTemporaire[index].resume;
+    document.getElementById('editcurrency-field').value = libTemporaire[index].price;
+    document.getElementById('editcover-image').value = libTemporaire[index].cover;
 }
 
 /**
