@@ -446,9 +446,9 @@ function formaterPrix(indice) {
  * Cette fonction affiche la taille de la librairie
  */
 function getLibraryLength() {    
-    let nbrlivre = myLibrary.length;
-    let librarylenght = cloudLibData.length;
-    document.getElementById('nbrdelivre').innerText = `livres_affiché = ${nbrlivre}/${librarylenght}`
+    let nbrlivre = libTemporaire.length;
+    let totalLivre = cloudLibData.length;
+    document.getElementById('nbrdelivre').innerText = `displayed_books = ${nbrlivre}/${totalLivre}`
 }
 
 /**
