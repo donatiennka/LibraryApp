@@ -234,6 +234,7 @@ function editBookAttribut(index) {
     document.getElementById('editauthor').value = libTemporaire[index].author;
     document.getElementById('editpages').value = libTemporaire[index].pages;
     document.getElementById('editeditor').value = libTemporaire[index].editor;
+    document.getElementById('editpub_year').value = libTemporaire[index].pub_year;
     document.getElementById('editgenre').value = libTemporaire[index].genre;  
     document.getElementById('editresume').value = libTemporaire[index].resume;
     document.getElementById('editcurrency-field').value = libTemporaire[index].price;
@@ -249,6 +250,7 @@ function saveChanges(index) {
     libTemporaire[index].pages = document.getElementById('editpages').value;
     libTemporaire[index].editor = document.getElementById('editeditor').value;
     libTemporaire[index].genre = document.getElementById('editgenre').value;
+    libTemporaire[index].pub_year = document.getElementById('editpub_year').value; 
     editingresume = document.getElementById('editresume').value;
     if (editingresume) {
         libTemporaire[index].resume = editingresume;
