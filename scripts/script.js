@@ -245,21 +245,21 @@ function editBookAttribut(index) {
  * du livre selectionné
  */
 function saveChanges(index) {
-    myLibrary[index].author = document.getElementById('editauthor').value;
-    myLibrary[index].pages = document.getElementById('editpages').value;
-    myLibrary[index].editor = document.getElementById('editeditor').value;
-    myLibrary[index].genre = document.getElementById('editgenre').value;
+    libTemporaire[index].author = document.getElementById('editauthor').value;
+    libTemporaire[index].pages = document.getElementById('editpages').value;
+    libTemporaire[index].editor = document.getElementById('editeditor').value;
+    libTemporaire[index].genre = document.getElementById('editgenre').value;
     editingresume = document.getElementById('editresume').value;
     if (editingresume) {
-        myLibrary[index].resume = editingresume;
+        libTemporaire[index].resume = editingresume;
     };
     editingprice = document.getElementById('editcurrency-field').value;
     if (editingprice) {
-        myLibrary[index].price = editingprice;
+        libTemporaire[index].price = editingprice;
     };
-    myLibrary[index].cover = document.getElementById('editcover-image').value;
+    libTemporaire[index].cover = document.getElementById('editcover-image').value;
     //ensuite on met à jour l'affichage de la table
-    writeUserData()
+    //writeUserData()
 } 
 
 /**
