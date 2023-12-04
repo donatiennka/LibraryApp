@@ -367,14 +367,14 @@ cancelform.addEventListener("click", () => {
 let deletebook = document.getElementById('btnsupprimer')
 deletebook.addEventListener("click", () => {
     
-    console.log("delete this book")    
-    console.log(idBook)
+    console.log("delete this book");    
+    console.log(idBook);
     
     if (window.confirm("Souhaitez-vous vraiment supprimer ce livre ?")) {
       deleteRow(idBook);
     }    
-    let closeModal = document.getElementById("close-me") 
-    closeModal.click()
+    let closeModal = document.getElementById("close-me"); 
+    closeModal.click();
     
 })
 
@@ -442,30 +442,32 @@ let etiqkfiltr;
 let selectlefiltre = document.querySelector('#filtrage select');
 selectlefiltre.addEventListener("change", () => {
  
-    //console.log(selectlefiltre.value);
+    //console.log(selectlefiltre.value);    
     let monfiltre = document.getElementById('quelfiltre');
+    let f = document.getElementById('nomdufiltre');
     monfiltre.innerText = '';
     if(selectlefiltre.value != "---") {
         monfiltre.innerText = `Select ${selectlefiltre.value} :`;
         globVar =  selectlefiltre.value.toLowerCase();
-    etiqkfiltr = globVar;
-    let f = document.getElementById('nomdufiltre');
-    f.innerHTML = '';
-    //const colors = ['red', 'green', 'blue', 'yellow'];
-    let val = getBookAttribute(selectlefiltre.value);
-    val.push('---');
-    //console.log(val);
-    
-    let combo = document.createElement('select');
-    f.appendChild(fillComboOptions(val, combo, selectlefiltre.value));
-    combo.addEventListener("change", () => {
-        //on fait appel à la fonction de filtrage    
-        filterMyLibrary(etiqkfiltr, combo.value);
-        // on rafraichi l'affichage de l'écran
-        renderTable(libTemporaire);        
-    })
+        etiqkfiltr = globVar;
+        //let f = document.getElementById('nomdufiltre');
+        f.innerHTML = '';
+        //const colors = ['red', 'green', 'blue', 'yellow'];
+        let val = getBookAttribute(selectlefiltre.value);
+        val.push('---');
+        //console.log(val);
+        
+        let combo = document.createElement('select');
+        f.appendChild(fillComboOptions(val, combo, selectlefiltre.value));
+        combo.addEventListener("change", () => {
+            //on fait appel à la fonction de filtrage    
+            filterMyLibrary(etiqkfiltr, combo.value);
+            // on rafraichi l'affichage de l'écran
+            renderTable(libTemporaire);        
+        })
     //returnlistofauthor();
     }else{ 
+        f.innerHTML = '';
         libTemporaire = myLibrary;
         renderTable(libTemporaire);
     };  
@@ -479,21 +481,23 @@ letriage.addEventListener("change", () => {
     const livresOrdonnees = Array.from(libTemporaire);
     
     let nomtri = letriage.value.toLowerCase();
-    if(nomtri == 'a_z') {
-        livresOrdonnees.sort((a, b) => a.title.localeCompare(b.title));
-    }else if(nomtri == 'z_a') {
-        livresOrdonnees.sort((a, b) => b.title.localeCompare(a.title));
-    }else if(nomtri == 'date_down') {
-        livresOrdonnees.sort((a, b) => a.pub_year - b.pub_year);
-    }else if(nomtri == 'date_up') {
-        livresOrdonnees.sort((a, b) => b.pub_year - a.pub_year);
-    }else if (nomtri == 'pages_down') {
-        livresOrdonnees.sort((a, b) => a.pages - b.pages);
-    }else if(nomtri == 'pages_up') {
-        livresOrdonnees.sort((a, b) => b.pages - a.pages)
-    }         
-    updateLibTemp(livresOrdonnees);
-    renderTable(libTemporaire);   
+    if(nomtri != '---') {    
+        if(nomtri == 'a_z') {
+            livresOrdonnees.sort((a, b) => a.title.localeCompare(b.title));
+        }else if(nomtri == 'z_a') {
+            livresOrdonnees.sort((a, b) => b.title.localeCompare(a.title));
+        }else if(nomtri == 'date_down') {
+            livresOrdonnees.sort((a, b) => a.pub_year - b.pub_year);
+        }else if(nomtri == 'date_up') {
+            livresOrdonnees.sort((a, b) => b.pub_year - a.pub_year);
+        }else if (nomtri == 'pages_down') {
+            livresOrdonnees.sort((a, b) => a.pages - b.pages);
+        }else if(nomtri == 'pages_up') {
+            livresOrdonnees.sort((a, b) => b.pages - a.pages);
+        }         
+        updateLibTemp(livresOrdonnees);
+        renderTable(libTemporaire); 
+    } else { renderTable(myLibrary) };  
 });
 
 //////////////////////////////////////////////////////////////////////////////
