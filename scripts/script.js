@@ -393,11 +393,17 @@ modifier.addEventListener("click", () => {
     //console.log(idBook)
     if (window.confirm("Souhaitez-vous vraiment modifier ce livre ?")) {
       saveChanges(idBook);
+      //on récupère la position initial de l'objet dans la librairie original
+      let bookinmylibId = myLibrary.indexOf(libTemporaire[idBook]);
+      //console.log("idBook = "+idBook +", bookinmylibId = "+bookinmylibId);
+      //console.log(libTemporaire[idBook]);
+      //on procède au remplacement de l'objet modifié dans myLibrary
+      myLibrary.splice(bookinmylibId, 1, libTemporaire[idBook]);
     }    
-    let closepopup = document.getElementById("modaleditclose") 
-    closepopup.click()
+    let closepopup = document.getElementById("modaleditclose"); 
+    closepopup.click();
     // affichage de la table mise à jour 
-    renderTable()   
+    writeUserData();   
       
 })
 
