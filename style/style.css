@@ -93,28 +93,33 @@ caption {
 }
 
 tr td:nth-child(1) {
-    width: 35%;
+    width: 5%;
+    
+}
+
+tr td:nth-child(2) {
+    width: 30%;
     text-align: start;
     padding-left: 5vh;
-  }
+}
   
-  tr td:nth-child(2) {
+tr td:nth-child(3) {
     width: 25%;
     text-align: start;
     padding-left: 5vh;
-  }
+}
   
-  tr td:nth-child(3) {
+tr td:nth-child(4) {
     width: 10%;
-  }
+}
   
-  tr td:nth-child(4) {
+tr td:nth-child(5) {
     width: 15%;
-  }
+}
 
-  tr td:nth-child(5) {
+tr td:nth-child(6) {
     width: 15%;
-  }
+}
 
 #libraryTable {
     margin-top: 2vh;
