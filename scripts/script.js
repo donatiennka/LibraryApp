@@ -283,16 +283,30 @@ function bookAvailable(index) {
  * argument
  * @param {number} index : index du livre à supprimer
  */
-function deleteRow(index) {
-    if (index > 1) {
-        myLibrary.splice(index, index-1);
-    } else if (index == 1) {
-        myLibrary.splice(index, index);
-    } else if (index == 0) {
-        myLibrary.shift();
+function deleteRow() {
+    let delbook = "";  
+    let titleofbookdeleted = "";
+    const newlibrary = [];      
+    //on supprime et on récupère le livre supprimé
+    if (idBook >= 1) {
+        delbook = libTemporaire.splice(idBook, 1);
+        titleofbookdeleted = delbook[0].title;
+    } else if (idBook == 0) {
+        delbook = libTemporaire.shift();
+        titleofbookdeleted = delbook.title
+    }  
+  
+    //on met à jour myLibrary    
+    for (let index = 0; index < myLibrary.length; index++) {
+        if(myLibrary[index].title != titleofbookdeleted) {
+            newlibrary.push(myLibrary[index]);
+        }
     }
+    //console.log(newlibrary);
+    myLibrary = [];
+    myLibrary = newlibrary;  
     //ensuite on met à jour l'affichage de la table
-    writeUserData()
+    writeUserData();
 }
 
 //////////////////////////////////////////////////////////////////////////////
