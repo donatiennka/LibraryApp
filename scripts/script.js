@@ -135,12 +135,13 @@ function renderTable(bookList=cloudLibData) {
         newRow.addEventListener("click", () => {
             changeSelectedLineColor(index);     
         });
-        newRow.insertCell(0).innerText = bookList[index].title;
-        newRow.insertCell(1).innerText = bookList[index].author;
-        newRow.insertCell(2).innerText = bookList[index].pages;
-        newRow.insertCell(3).innerHTML = `<span id='instock${index}'>${bookList[index].instock}</span>`;
-        newRow.insertCell(4).innerHTML = `<button onclick='bookAvailable(${index})' class='tableButtons'>Check</button>`;      
-        newRow.insertCell(5).innerHTML = `<button onclick='showDetails(${index})' class='tableButtons' 
+        newRow.insertCell(0).innerText = index + 1;
+        newRow.insertCell(1).innerText = bookList[index].title;
+        newRow.insertCell(2).innerText = bookList[index].author;
+        newRow.insertCell(3).innerText = bookList[index].pages;
+        newRow.insertCell(4).innerHTML = `<span id='instock${index}'>${bookList[index].instock}</span>`;
+        newRow.insertCell(5).innerHTML = `<button onclick='bookAvailable(${index})' class='tableButtons'>Check</button>`;      
+        newRow.insertCell(6).innerHTML = `<button onclick='showDetails(${index})' class='tableButtons' 
         data-bs-toggle='modal' data-bs-target='#displaybookdetails'>details</button>`
     }
     //on appelle l'affichage du nombre de livre
