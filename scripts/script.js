@@ -250,7 +250,7 @@ function saveChanges(index) {
     libTemporaire[index].pages = document.getElementById('editpages').value;
     libTemporaire[index].editor = document.getElementById('editeditor').value;
     libTemporaire[index].genre = document.getElementById('editgenre').value;
-    libTemporaire[index].pub_year = document.getElementById('editpub_year').value; 
+    libTemporaire[index].pub_year = document.getElementById('pub_year').value;
     editingresume = document.getElementById('editresume').value;
     if (editingresume) {
         libTemporaire[index].resume = editingresume;
@@ -373,7 +373,7 @@ deletebook.addEventListener("click", () => {
     console.log(idBook);
     
     if (window.confirm("Souhaitez-vous vraiment supprimer ce livre ?")) {
-      deleteRow(idBook);
+      deleteRow();
     }    
     let closeModal = document.getElementById("close-me"); 
     closeModal.click();
