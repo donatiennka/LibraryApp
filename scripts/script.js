@@ -16,7 +16,8 @@ dbRefObject.on('value', snap => {
     cloudLib = snap.val();
     cloudLibData = cloudLib["myLibrary"];
     let myLibrary = cloudLibData;
-    libTemporaire = myLibrary;
+    //on fait une copie de myLibrary dans libTemporaire
+    libTemporaire = myLibrary.slice();
     syncData();
     renderTable();
 })
@@ -41,6 +42,8 @@ function syncData() {
     for (i = 0; i < cloudLibData.length; i++) {
       myLibrary[i] = cloudLibData[i]
     }
+    //on fait une copie de myLibrary dans libTemporaire
+    libTemporaire = myLibrary.slice();
 }
 
 
@@ -78,7 +81,7 @@ function newBook(title, author, genre, editor, pages,
 let myLibrary = cloudLibData;
 
 //correspondance valeur - genre litéraire
-const genreLiteraire = {
+/*const genreLiteraire = {
     1:'Biographie', 
     2:'Fantastique', 
     3:'Historique',
@@ -102,7 +105,7 @@ const reverseGreLite = {
     'Littéraire': 8,
     'Scientifique': 9,
     'Autre': 10,
-  } 
+  } */
 
 /**
  * Cette fonction renvoie la date du moment où elle est appelée   
@@ -209,7 +212,7 @@ function showDetails(index) {
     document.getElementById('newTitle').innerText = libTemporaire[index].title;
     document.getElementById('newAuthor').innerText = libTemporaire[index].author;
     document.getElementById('newPages').innerText = libTemporaire[index].pages;
-    document.getElementById('newGenre').innerText = genreLiteraire[libTemporaire[index].genre];
+    document.getElementById('newGenre').innerText = libTemporaire[index].genre;
     document.getElementById('newEditor').innerText = libTemporaire[index].editor;
     document.getElementById('newPublicationYear').innerText = libTemporaire[index].pub_year;
     document.getElementById('newPrice').innerText = formaterPrix(index);
@@ -470,7 +473,8 @@ selectlefiltre.addEventListener("change", () => {
     //returnlistofauthor();
     }else{ 
         f.innerHTML = '';
-        libTemporaire = myLibrary;
+        //on fait une copie de myLibrary dans libTemporaire
+        libTemporaire = myLibrary.slice();
         renderTable(libTemporaire);
     };  
 })  
