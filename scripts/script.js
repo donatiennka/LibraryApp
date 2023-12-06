@@ -271,14 +271,18 @@ function saveChanges(index) {
  * @param {number} index 
  */
 function bookAvailable(index) {
-    if (myLibrary[index].instock == 'No') {
-        myLibrary[index].instock = 'Yes'
-        document.getElementById(`instock${index}`).innerHTML = `<span id='instock${index}'>${myLibrary[index].instock}</span>`
+    if (libTemporaire[index].instock == 'No') {
+        libTemporaire[index].instock = 'Yes';
+        document.getElementById(`instock${index}`).innerHTML = `<span id='instock${index}'>${libTemporaire[index].instock}</span>`;
     } else {
-        myLibrary[index].instock = 'No'
-        document.getElementById(`instock${index}`).innerHTML = `<span id='instock${index}'>${myLibrary[index].instock}</span>`
+        libTemporaire[index].instock = 'No';
+        document.getElementById(`instock${index}`).innerHTML = `<span id='instock${index}'>${libTemporaire[index].instock}</span>`;
     }
-    writeUserData()
+    //on récupère l'index original de l'objet dans myLibrary
+    let bookinmylibId = myLibrary.indexOf(libTemporaire[index]);
+    //on met à jour l'élément en question dans myLibrary
+    myLibrary.splice(bookinmylibId, 1, libTemporaire[index]);
+    writeUserData(libTemporaire);
 }
 
 /**
@@ -628,14 +632,14 @@ function fillComboOptions(tab, comboElt) {
 /**
  * Cette fonction va se chargée des opérations de filtrage des livres
  * en fonction des arguments qui lui seront passés en paramètre
- * @param {*} filtr 
- * @param {*} nomfiltr 
+ * @param {*} filtr : le type de filtre choisie
+ * @param {*} nomfiltr : le sous type de filtre choisie
  */
 function filterMyLibrary(filtr, nomfiltr) {
     if(filtr != "---") {  
         libTemporaire = [];
         if(filtr == "available") { filtr = "instock" };
-        if(filtr == "genre") { nomfiltr = reverseGreLite[nomfiltr] };
+        //if(filtr == "genre") { nomfiltr = reverseGreLite[nomfiltr] };
         for(let i=0; i<myLibrary.length; i++) {
             if(myLibrary[i][filtr] == nomfiltr){
             //console.log("point test : rouge");
