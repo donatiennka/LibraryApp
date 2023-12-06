@@ -42,8 +42,6 @@ function syncData() {
     for (i = 0; i < cloudLibData.length; i++) {
       myLibrary[i] = cloudLibData[i]
     }
-    //on fait une copie de myLibrary dans libTemporaire
-    libTemporaire = myLibrary.slice();
 }
 
 
@@ -356,6 +354,8 @@ form.addEventListener("submit", (event) => {
     event.preventDefault();
     //console.log("Add this book");
     addBookToLibrary();
+    //on réinitialise les filtres
+    chooseNoFilter();
     let closeForn = document.querySelector(".btn-close"); 
     closeForn.click();
     
@@ -463,7 +463,7 @@ selectlefiltre.addEventListener("change", () => {
         //console.log(val);
         
         let combo = document.createElement('select');
-        f.appendChild(fillComboOptions(val, combo, selectlefiltre.value));
+        f.appendChild(fillComboOptions(val, combo));
         combo.addEventListener("change", () => {
             //on fait appel à la fonction de filtrage    
             filterMyLibrary(etiqkfiltr, combo.value);
@@ -656,6 +656,16 @@ function updateLibTemp(newtab) {
     for (let i = 0; i < newtab.length; i++) {
         libTemporaire.push(newtab[i]);
     }  
+}
+
+/**
+ * Cette fonction permet da réinitialisation des filtres
+ * à chaque fois que l'on affiche l'intégralité de la librairie
+ */
+function chooseNoFilter() {
+    document.querySelector('#filtrage select').value = ('---');
+    document.getElementById('quelfiltre').innerText = '';
+    document.getElementById('nomdufiltre').innerHTML = '';
 }
 
 ///////////////////////////////////////////////////////////
