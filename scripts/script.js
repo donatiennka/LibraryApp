@@ -609,25 +609,17 @@ function changeSelectedLineColor(index) {
 /**
  * Cette fonction rempli nos combo box
  */
-function fillComboOptions(tab, comboElt, testElt='') {
+function fillComboOptions(tab, comboElt) {
     while(tab.length)
     {
         let valeur = tab.pop();
         let opt;
-        //console.log("contenu: "+testElt);
-        if(testElt == "genre") {     
-            if(valeur == '---') {
-                opt = new Option('---', '---', true, true);
-            }else{
-                opt = new Option(genreLiteraire[valeur], genreLiteraire[valeur], false, false);
-            }       
-        }else{
-            if(valeur == '---') {
+        //console.log("contenu: "+testElt);        
+        if(valeur == '---') {
             opt = new Option(valeur, valeur, true, true);
-            }else{
-                opt = new Option(valeur, valeur, false, false);
-            }
-        }            
+        }else{
+            opt = new Option(valeur, valeur, false, false);
+        }                   
         comboElt.options[comboElt.options.length] = opt;
     }
     return comboElt;
