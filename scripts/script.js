@@ -282,7 +282,7 @@ function bookAvailable(index) {
     let bookinmylibId = myLibrary.indexOf(libTemporaire[index]);
     //on met à jour l'élément en question dans myLibrary
     myLibrary.splice(bookinmylibId, 1, libTemporaire[index]);
-    writeUserData(libTemporaire);
+    writeUserData();
 }
 
 /**
@@ -670,6 +670,34 @@ function chooseNoFilter() {
     document.querySelector('#filtrage select').value = ('---');
     document.getElementById('quelfiltre').innerText = '';
     document.getElementById('nomdufiltre').innerHTML = '';
+}
+
+/**
+ * Cette fonction permet de mettre à jour en temps réel l'affichage de la 
+ * table des livres si le filtre available est activé...
+ * @param {number} j : index du livre donc lea disponibilité vient de changer
+ */
+function realTimeUpdated(j) {
+    let f = document.querySelector('#filtrage select');
+    let namef = document.querySelector('#nomdufiltre select');
+    if(f.value.toLowerCase() == 'available') {
+        if(namef.value.toLowerCase() == 'yes') {
+            if(libTemporaire[j].instock != 'yes') {
+                //on retire l'objet du filtre 'Yes'
+                if(j >= 1) { 
+                    libTemporaire.splice(j, 1);
+                } else { libTemporaire.shift() };
+            
+            }
+        } else if(namef.value.toLowerCase() == 'no') {
+            if(libTemporaire[j].instock != 'no') {
+                //on retire l'objet du filtre 'Yes'
+                if(j >= 1) { 
+                libTemporaire.splice(j, 1);
+                } else { libTemporaire.shift() };
+            }
+        }
+    }
 }
 
 ///////////////////////////////////////////////////////////
