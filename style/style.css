@@ -26,6 +26,14 @@ h1 {
     color: white;
 }
 
+em {
+    text-transform: capitalize;
+    font-family: 'Times New Roman', Times, serif;
+    font-style: italic;
+    color: red;
+    font-size: 2vh;
+}
+
 p {
     font-size: 3vh;
     color: white;
