@@ -174,7 +174,7 @@ function addBookToLibrary () {
         //console.log(newCover);
         new newBook(newTitle, newAuthor, newGenre, newEditor, newPages, newPub_year,
           newResune, newPrice, newCover, newStock, newRegdate);
-        //on vide les champs du formulaire
+        //on vide les champs du formulaire après enregistrement du livre
         viderFormulaire();
         //on ferme le formulaire si tout est correcte
         let closeForn = document.querySelector(".btn-close"); 
@@ -285,6 +285,7 @@ function bookAvailable(index) {
     //on met à jour l'élément en question dans myLibrary
     myLibrary.splice(bookinmylibId, 1, libTemporaire[index]);
     writeUserData();
+    chooseNoFilter();
 }
 
 /**
@@ -328,11 +329,11 @@ function deleteRow() {
  * @throws {Error}
  */
 function validerSaisie(saisie) {
-    let saisieRegExp = new RegExp("[a-zA-Zçàéèê0-9._-]{2,}")
+    let saisieRegExp = new RegExp("[a-zA-Zçàéèê0-9._-]{2,}");
     if (!saisieRegExp.test(saisie)) {
-        throw new Error("Veuillez à bien remplir le formulaire.")
+        throw new Error("Veuillez à bien remplir le formulaire.");
     }else{
-        return saisie
+        return saisie;
     } 
 }
 
@@ -665,10 +666,11 @@ function updateLibTemp(newtab) {
 }
 
 /**
- * Cette fonction permet da réinitialisation des filtres
+ * Cette fonction permet da réinitialisation des filtres et tri
  * à chaque fois que l'on affiche l'intégralité de la librairie
  */
 function chooseNoFilter() {
+    document.querySelector('#triage select').value = ('---');
     document.querySelector('#filtrage select').value = ('---');
     document.getElementById('quelfiltre').innerText = '';
     document.getElementById('nomdufiltre').innerHTML = '';
