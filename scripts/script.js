@@ -7,6 +7,8 @@ const dbRefObject = firebase.database().ref().child('Books')
 let cloudLib = {};
 let cloudLibData = [];
 let libTemporaire = [];
+//on crée une variable globale qui recevra les index de la librairie
+let tableOfIndex;
 //variable globale pour l'index du livre
 let idBook;
 let globVar;
@@ -55,7 +57,7 @@ const table = document.getElementById('libraryTable');
  * cette fonction est un constructeur d'objet de type livre
  */
 function newBook(title, author, genre, editor, pages, 
-  pub_year, resume, price, cover, instock='Yes', today) {
+  pub_year, resume, price, cover, instock, today) {
 
     this.title = title;
     this.author = author;
@@ -119,9 +121,6 @@ function recordDate() {
     return `${day}/${month}/${year} at ${hour}:${minutes}:${sec}`
 }
 
-//on crée une variable globale qui recevra les index de la librairie
-let tableOfIndex;
-
 /**
  * Cette fonction crée la table des livres 
  * elle est appelé chaque fois que le la librairie est modifiée
@@ -177,8 +176,11 @@ function addBookToLibrary () {
           newResune, newPrice, newCover, newStock, newRegdate);
         //on vide les champs du formulaire
         viderFormulaire();
+        //on ferme le formulaire si tout est correcte
+        let closeForn = document.querySelector(".btn-close"); 
+        closeForn.click();
     }catch(erreur) {
-        viderFormulaire();
+        //viderFormulaire();
         window.alert(erreur.message);
         //console.log(erreur.message);         
     }  
@@ -360,8 +362,8 @@ form.addEventListener("submit", (event) => {
     addBookToLibrary();
     //on réinitialise les filtres
     chooseNoFilter();
-    let closeForn = document.querySelector(".btn-close"); 
-    closeForn.click();
+    //let closeForn = document.querySelector(".btn-close"); 
+    //closeForn.click();
     
 })
 
@@ -675,7 +677,7 @@ function chooseNoFilter() {
 /**
  * Cette fonction permet de mettre à jour en temps réel l'affichage de la 
  * table des livres si le filtre available est activé...
- * @param {number} j : index du livre donc lea disponibilité vient de changer
+ * @param {number} j : index du livre donc la disponibilité vient de changer
  */
 function realTimeUpdated(j) {
     let f = document.querySelector('#filtrage select');
