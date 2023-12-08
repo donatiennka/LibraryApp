@@ -287,7 +287,7 @@ function deleteRow() {
         titleofbookdeleted = delbook[0].title;
     } else if (idBook == 0) {
         delbook = libTemporaire.shift();
-        titleofbookdeleted = delbook.title
+        titleofbookdeleted = delbook.title;
     }  
   
     //on met à jour myLibrary    
@@ -367,9 +367,12 @@ deletebook.addEventListener("click", () => {
     console.log("delete this book");    
     console.log(idBook);
     
-    if (window.confirm("Souhaitez-vous vraiment supprimer ce livre ?")) {
+    /*if (window.confirm("Souhaitez-vous vraiment supprimer ce livre ?")) {
       deleteRow();
-    }    
+    }*/
+    if (window.confirm("You need special authorisation to delete this book.")) {
+        //deleteRow();
+    }   
     let closeModal = document.getElementById("close-me"); 
     closeModal.click();
     
@@ -391,11 +394,12 @@ modifier.addEventListener("click", () => {
     if (window.confirm("Souhaitez-vous vraiment modifier ce livre ?")) {
       saveChanges(idBook);
       //on récupère la position initial de l'objet dans la librairie original
-      let bookinmylibId = myLibrary.indexOf(libTemporaire[idBook]);
+      //let bookinmylibId = myLibrary.indexOf(libTemporaire[idBook]);
       //console.log("idBook = "+idBook +", bookinmylibId = "+bookinmylibId);
       //console.log(libTemporaire[idBook]);
       //on procède au remplacement de l'objet modifié dans myLibrary
-      myLibrary.splice(bookinmylibId, 1, libTemporaire[idBook]);
+      miseAjourLib(idBook);
+      //myLibrary.splice(bookinmylibId, 1, libTemporaire[idBook]);
     }    
     let closepopup = document.getElementById("modaleditclose"); 
     closepopup.click();
