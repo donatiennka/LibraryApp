@@ -246,21 +246,30 @@ function saveChanges(index) {
  * (Yes) ou pas (No)
  * @param {number} index 
  */
-function bookAvailable(index) {
+function bookAvailable(index) {  
     if (libTemporaire[index].instock == 'No') {
-        libTemporaire[index].instock = 'Yes';
-        document.getElementById(`instock${index}`).innerHTML = `<span id='instock${index}'>${libTemporaire[index].instock}</span>`;
+        libTemporaire[index].instock = 'Yes'
+        document.getElementById(`instock${index}`).innerHTML = `<span id='instock${index}'>${libTemporaire[index].instock}</span>`
+        miseAjourLib(index);   
     } else {
-        libTemporaire[index].instock = 'No';
-        document.getElementById(`instock${index}`).innerHTML = `<span id='instock${index}'>${libTemporaire[index].instock}</span>`;
+        libTemporaire[index].instock = 'No'
+        document.getElementById(`instock${index}`).innerHTML = `<span id='instock${index}'>${libTemporaire[index].instock}</span>`
+        miseAjourLib(index);
     }
-    //on récupère l'index original de l'objet dans myLibrary
-    let bookinmylibId = myLibrary.indexOf(libTemporaire[index]);
-    //on met à jour l'élément en question dans myLibrary
-    myLibrary.splice(bookinmylibId, 1, libTemporaire[index]);
-    writeUserData();
-    renderTable();
-    chooseNoFilter();    
+    let f = document.querySelector('#filtrage select').value;
+    //console.log(f);  
+    if(f == 'available') {
+        console.log(f);
+        const bin = libTemporaire.filter(realTimeUpdated);
+        renderTable(bin);
+        getLibraryLength(bin.length);
+        if(bin.length < 1) {      
+            //on réinitialise les filtres
+            chooseNoFilter();
+        }
+    } else {        
+        renderTable();
+    }
 }
 
 /**
