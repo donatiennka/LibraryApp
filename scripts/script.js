@@ -681,6 +681,26 @@ function realTimeUpdated(j) {
     }
 }
 
+/**
+ * Cette fonction fait une mise à jour de myLibrary en fonction
+ * de la modification apporter à un livre donné.
+ * @param {number} k : indice du livre manipulé
+ */
+function miseAjourLib(k) {
+    const newlibrary = [];
+    for (let index = 0; index < myLibrary.length; index++) {
+        if(myLibrary[index].title != libTemporaire[k].title) {
+            newlibrary.push(myLibrary[index]);
+        } else {
+            newlibrary.push(libTemporaire[k]);
+        }
+    }
+    myLibrary = [];
+    //copie
+    myLibrary = newlibrary.slice();
+    writeUserData();
+}
+
 ///////////////////////////////////////////////////////////
 // Example starter JavaScript for disabling form submissions 
 //if there are invalid fields
