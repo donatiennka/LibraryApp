@@ -719,6 +719,18 @@ function syncLocalStorage() {
     window.localStorage.setItem("livres", livres); 
 }
 
+/**
+ * Cette fonction permet de récupérer les données stockées 
+ * en machine.
+ */
+function readLocalStorage() {   
+    //on récupère les livres dans le localStorage
+    mylibStorage = window.localStorage.getItem("livres");
+    //on formate les données dans leur format d'origine
+    mylibStorage = JSON.parse(mylibStorage); 
+    //renderTable(mylibStorage);   
+  }
+
 ///////////////////////////////////////////////////////////
 // Example starter JavaScript for disabling form submissions 
 //if there are invalid fields
