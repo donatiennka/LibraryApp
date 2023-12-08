@@ -227,7 +227,7 @@ function saveChanges(index) {
     libTemporaire[index].pages = document.getElementById('editpages').value;
     libTemporaire[index].editor = document.getElementById('editeditor').value;
     libTemporaire[index].genre = document.getElementById('editgenre').value;
-    libTemporaire[index].pub_year = document.getElementById('pub_year').value;
+    libTemporaire[index].pub_year = document.getElementById('editpub_year').value;
     editingresume = document.getElementById('editresume').value;
     if (editingresume) {
         libTemporaire[index].resume = editingresume;
@@ -706,6 +706,17 @@ function miseAjourLib(k) {
     //copie
     myLibrary = newlibrary.slice();
     writeUserData();
+}
+
+/**
+ * Cette fonction va nous permettre de sauvegarder les données
+ * dans le localStorage c'est à dire sur la machine de l'utilisateur
+ */
+function syncLocalStorage() {
+    //transformation des livres en JSON
+    const livres = JSON.stringify(myLibrary);
+    //stockage des données dans le localStorage
+    window.localStorage.setItem("livres", livres); 
 }
 
 ///////////////////////////////////////////////////////////
