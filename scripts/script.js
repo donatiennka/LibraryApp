@@ -33,7 +33,7 @@ function writeUserData() {
       myLibrary
     });
   
-    renderTable()
+    //renderTable()
 }
 
 /**
@@ -74,38 +74,12 @@ function newBook(title, author, genre, editor, pages,
     //on evoie le nouveau livre dans la librairie
     myLibrary.push(this);
     writeUserData();
+    renderTable();
 
 }
 
 // on charge notre librairie à partir du cloud
 let myLibrary = cloudLibData;
-
-//correspondance valeur - genre litéraire
-/*const genreLiteraire = {
-    1:'Biographie', 
-    2:'Fantastique', 
-    3:'Historique',
-    4:'Policier',
-    5:'Science-Fiction',
-    6:'Conte philosophique',
-    7:'Comédie',
-    8:'Littéraire',
-    9:'Scientifique',
-    10:'Autre',
-}
-
-const reverseGreLite = {
-    'Biographie': 1, 
-    'Fantastique': 2, 
-    'Historique': 3,
-    'Policier': 4,
-    'Science-Fiction': 5,
-    'Conte philosophique': 6,
-    'Comédie': 7,
-    'Littéraire': 8,
-    'Scientifique': 9,
-    'Autre': 10,
-  } */
 
 /**
  * Cette fonction renvoie la date du moment où elle est appelée   
@@ -285,7 +259,8 @@ function bookAvailable(index) {
     //on met à jour l'élément en question dans myLibrary
     myLibrary.splice(bookinmylibId, 1, libTemporaire[index]);
     writeUserData();
-    chooseNoFilter();
+    renderTable();
+    chooseNoFilter();    
 }
 
 /**
@@ -317,6 +292,7 @@ function deleteRow() {
     myLibrary = newlibrary;  
     //ensuite on met à jour l'affichage de la table
     writeUserData();
+    renderTable();
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -415,7 +391,8 @@ modifier.addEventListener("click", () => {
     let closepopup = document.getElementById("modaleditclose"); 
     closepopup.click();
     // affichage de la table mise à jour 
-    writeUserData();   
+    writeUserData(); 
+    renderTable();  
       
 })
 
@@ -459,7 +436,7 @@ selectlefiltre.addEventListener("change", () => {
     let f = document.getElementById('nomdufiltre');
     monfiltre.innerText = '';
     if(selectlefiltre.value != "---") {
-        monfiltre.innerText = `Select ${selectlefiltre.value} :`;
+        monfiltre.innerText = `Select [ ${selectlefiltre.value} ] name :`;
         globVar =  selectlefiltre.value.toLowerCase();
         etiqkfiltr = globVar;
         //let f = document.getElementById('nomdufiltre');
@@ -587,9 +564,9 @@ function getBookAttribute (myattr) {
         for(let i=0; i<objAttrBook[valattr].length; i++) {
             //on s'assure de me pas mettre dans la nouvelle
             //liste plus d'une fois le même élément    
-        if(!newTab.includes(objAttrBook[valattr][i])){
-            newTab.push(objAttrBook[valattr][i]);
-        };
+            if(!newTab.includes(objAttrBook[valattr][i])){
+                newTab.push(objAttrBook[valattr][i]);
+            };
         }
         //console.log(objAttrBook[valattr]);
         return newTab;
