@@ -298,7 +298,7 @@ function deleteRow() {
     }
     //console.log(newlibrary);
     myLibrary = [];
-    myLibrary = newlibrary;  
+    myLibrary = newlibrary.slice();  
     //ensuite on met à jour l'affichage de la table
     writeUserData();
     renderTable();
@@ -402,7 +402,7 @@ modifier.addEventListener("click", () => {
     // affichage de la table mise à jour 
     writeUserData(); 
     renderTable();  
-      
+    chooseNoFilter();  
 })
 
 // Ajout d'un listener à notre balise input titre du formulaire add book
@@ -547,11 +547,18 @@ function formaterPrix(indice) {
 
 /**
  * Cette fonction affiche la taille de la librairie
+ * @param {*} nbr : c'est un paramètre facultatif.
+ * si il est renseigné, c'est lui qui sera pris en compte
  */
-function getLibraryLength() {    
-    let nbrlivre = libTemporaire.length;
+function getLibraryLength(nbr='aucun') {
+    let nbrlivre;
     let totalLivre = cloudLibData.length;
-    document.getElementById('nbrdelivre').innerText = `displayed_books = ${nbrlivre}/${totalLivre}`
+    if(nbr == 'aucun') {
+        nbrlivre = libTemporaire.length;
+    } else {
+        nbrlivre = nbr;
+    }  
+    document.getElementById('nbrdelivre').innerText = `displayed_books = ${nbrlivre}/${totalLivre}`;
 }
 
 /**
