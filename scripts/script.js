@@ -7,6 +7,8 @@ const dbRefObject = firebase.database().ref().child('Books')
 let cloudLib = {};
 let cloudLibData = [];
 let libTemporaire = [];
+//on crée une variable globale qui recevra les index de la librairie
+let tableOfIndex;
 //variable globale pour l'index du livre
 let idBook;
 let globVar;
@@ -16,7 +18,8 @@ dbRefObject.on('value', snap => {
     cloudLib = snap.val();
     cloudLibData = cloudLib["myLibrary"];
     let myLibrary = cloudLibData;
-    libTemporaire = myLibrary;
+    //on fait une copie de myLibrary dans libTemporaire
+    libTemporaire = myLibrary.slice();
     syncData();
     renderTable();
 })
@@ -30,7 +33,7 @@ function writeUserData() {
       myLibrary
     });
   
-    renderTable()
+    //renderTable()
 }
 
 /**
@@ -54,7 +57,7 @@ const table = document.getElementById('libraryTable');
  * cette fonction est un constructeur d'objet de type livre
  */
 function newBook(title, author, genre, editor, pages, 
-  pub_year, resume, price, cover, instock='Yes', today) {
+  pub_year, resume, price, cover, instock, today) {
 
     this.title = title;
     this.author = author;
@@ -71,38 +74,12 @@ function newBook(title, author, genre, editor, pages,
     //on evoie le nouveau livre dans la librairie
     myLibrary.push(this);
     writeUserData();
+    renderTable();
 
 }
 
 // on charge notre librairie à partir du cloud
 let myLibrary = cloudLibData;
-
-//correspondance valeur - genre litéraire
-const genreLiteraire = {
-    1:'Biographie', 
-    2:'Fantastique', 
-    3:'Historique',
-    4:'Policier',
-    5:'Science-Fiction',
-    6:'Conte philosophique',
-    7:'Comédie',
-    8:'Littéraire',
-    9:'Scientifique',
-    10:'Autre',
-}
-
-const reverseGreLite = {
-    'Biographie': 1, 
-    'Fantastique': 2, 
-    'Historique': 3,
-    'Policier': 4,
-    'Science-Fiction': 5,
-    'Conte philosophique': 6,
-    'Comédie': 7,
-    'Littéraire': 8,
-    'Scientifique': 9,
-    'Autre': 10,
-  } 
 
 /**
  * Cette fonction renvoie la date du moment où elle est appelée   
@@ -118,9 +95,6 @@ function recordDate() {
     return `${day}/${month}/${year} at ${hour}:${minutes}:${sec}`
 }
 
-//on crée une variable globale qui recevra les index de la librairie
-let tableOfIndex;
-
 /**
  * Cette fonction crée la table des livres 
  * elle est appelé chaque fois que le la librairie est modifiée
@@ -135,12 +109,13 @@ function renderTable(bookList=cloudLibData) {
         newRow.addEventListener("click", () => {
             changeSelectedLineColor(index);     
         });
-        newRow.insertCell(0).innerText = bookList[index].title;
-        newRow.insertCell(1).innerText = bookList[index].author;
-        newRow.insertCell(2).innerText = bookList[index].pages;
-        newRow.insertCell(3).innerHTML = `<span id='instock${index}'>${bookList[index].instock}</span>`;
-        newRow.insertCell(4).innerHTML = `<button onclick='bookAvailable(${index})' class='tableButtons'>Check</button>`;      
-        newRow.insertCell(5).innerHTML = `<button onclick='showDetails(${index})' class='tableButtons' 
+        newRow.insertCell(0).innerText = index + 1;
+        newRow.insertCell(1).innerText = bookList[index].title;
+        newRow.insertCell(2).innerText = bookList[index].author;
+        newRow.insertCell(3).innerText = bookList[index].pages;
+        newRow.insertCell(4).innerHTML = `<span id='instock${index}'>${bookList[index].instock}</span>`;
+        newRow.insertCell(5).innerHTML = `<button onclick='bookAvailable(${index})' class='tableButtons'>Check</button>`;      
+        newRow.insertCell(6).innerHTML = `<button onclick='showDetails(${index})' class='tableButtons' 
         data-bs-toggle='modal' data-bs-target='#displaybookdetails'>details</button>`
     }
     //on appelle l'affichage du nombre de livre
@@ -173,10 +148,13 @@ function addBookToLibrary () {
         //console.log(newCover);
         new newBook(newTitle, newAuthor, newGenre, newEditor, newPages, newPub_year,
           newResune, newPrice, newCover, newStock, newRegdate);
-        //on vide les champs du formulaire
+        //on vide les champs du formulaire après enregistrement du livre
         viderFormulaire();
+        //on ferme le formulaire si tout est correcte
+        let closeForn = document.querySelector(".btn-close"); 
+        closeForn.click();
     }catch(erreur) {
-        viderFormulaire();
+        //viderFormulaire();
         window.alert(erreur.message);
         //console.log(erreur.message);         
     }  
@@ -208,7 +186,7 @@ function showDetails(index) {
     document.getElementById('newTitle').innerText = libTemporaire[index].title;
     document.getElementById('newAuthor').innerText = libTemporaire[index].author;
     document.getElementById('newPages').innerText = libTemporaire[index].pages;
-    document.getElementById('newGenre').innerText = genreLiteraire[libTemporaire[index].genre];
+    document.getElementById('newGenre').innerText = libTemporaire[index].genre;
     document.getElementById('newEditor').innerText = libTemporaire[index].editor;
     document.getElementById('newPublicationYear').innerText = libTemporaire[index].pub_year;
     document.getElementById('newPrice').innerText = formaterPrix(index);
@@ -233,6 +211,7 @@ function editBookAttribut(index) {
     document.getElementById('editauthor').value = libTemporaire[index].author;
     document.getElementById('editpages').value = libTemporaire[index].pages;
     document.getElementById('editeditor').value = libTemporaire[index].editor;
+    document.getElementById('editpub_year').value = libTemporaire[index].pub_year;
     document.getElementById('editgenre').value = libTemporaire[index].genre;  
     document.getElementById('editresume').value = libTemporaire[index].resume;
     document.getElementById('editcurrency-field').value = libTemporaire[index].price;
@@ -244,21 +223,22 @@ function editBookAttribut(index) {
  * du livre selectionné
  */
 function saveChanges(index) {
-    myLibrary[index].author = document.getElementById('editauthor').value;
-    myLibrary[index].pages = document.getElementById('editpages').value;
-    myLibrary[index].editor = document.getElementById('editeditor').value;
-    myLibrary[index].genre = document.getElementById('editgenre').value;
+    libTemporaire[index].author = document.getElementById('editauthor').value;
+    libTemporaire[index].pages = document.getElementById('editpages').value;
+    libTemporaire[index].editor = document.getElementById('editeditor').value;
+    libTemporaire[index].genre = document.getElementById('editgenre').value;
+    libTemporaire[index].pub_year = document.getElementById('editpub_year').value;
     editingresume = document.getElementById('editresume').value;
     if (editingresume) {
-        myLibrary[index].resume = editingresume;
+        libTemporaire[index].resume = editingresume;
     };
     editingprice = document.getElementById('editcurrency-field').value;
     if (editingprice) {
-        myLibrary[index].price = editingprice;
+        libTemporaire[index].price = editingprice;
     };
-    myLibrary[index].cover = document.getElementById('editcover-image').value;
+    libTemporaire[index].cover = document.getElementById('editcover-image').value;
     //ensuite on met à jour l'affichage de la table
-    writeUserData()
+    //writeUserData()
 } 
 
 /**
@@ -266,15 +246,30 @@ function saveChanges(index) {
  * (Yes) ou pas (No)
  * @param {number} index 
  */
-function bookAvailable(index) {
-    if (myLibrary[index].instock == 'No') {
-        myLibrary[index].instock = 'Yes'
-        document.getElementById(`instock${index}`).innerHTML = `<span id='instock${index}'>${myLibrary[index].instock}</span>`
+function bookAvailable(index) {  
+    if (libTemporaire[index].instock == 'No') {
+        libTemporaire[index].instock = 'Yes'
+        document.getElementById(`instock${index}`).innerHTML = `<span id='instock${index}'>${libTemporaire[index].instock}</span>`
+        miseAjourLib(index);   
     } else {
-        myLibrary[index].instock = 'No'
-        document.getElementById(`instock${index}`).innerHTML = `<span id='instock${index}'>${myLibrary[index].instock}</span>`
+        libTemporaire[index].instock = 'No'
+        document.getElementById(`instock${index}`).innerHTML = `<span id='instock${index}'>${libTemporaire[index].instock}</span>`
+        miseAjourLib(index);
     }
-    writeUserData()
+    let f = document.querySelector('#filtrage select').value;
+    //console.log(f);  
+    if(f == 'available') {
+        console.log(f);
+        const bin = libTemporaire.filter(realTimeUpdated);
+        renderTable(bin);
+        getLibraryLength(bin.length);
+        if(bin.length < 1) {      
+            //on réinitialise les filtres
+            chooseNoFilter();
+        }
+    } else {        
+        renderTable();
+    }
 }
 
 /**
@@ -282,16 +277,31 @@ function bookAvailable(index) {
  * argument
  * @param {number} index : index du livre à supprimer
  */
-function deleteRow(index) {
-    if (index > 1) {
-        myLibrary.splice(index, index-1);
-    } else if (index == 1) {
-        myLibrary.splice(index, index);
-    } else if (index == 0) {
-        myLibrary.shift();
+function deleteRow() {
+    let delbook = "";  
+    let titleofbookdeleted = "";
+    const newlibrary = [];      
+    //on supprime et on récupère le livre supprimé
+    if (idBook >= 1) {
+        delbook = libTemporaire.splice(idBook, 1);
+        titleofbookdeleted = delbook[0].title;
+    } else if (idBook == 0) {
+        delbook = libTemporaire.shift();
+        titleofbookdeleted = delbook.title;
+    }  
+  
+    //on met à jour myLibrary    
+    for (let index = 0; index < myLibrary.length; index++) {
+        if(myLibrary[index].title != titleofbookdeleted) {
+            newlibrary.push(myLibrary[index]);
+        }
     }
+    //console.log(newlibrary);
+    myLibrary = [];
+    myLibrary = newlibrary.slice();  
     //ensuite on met à jour l'affichage de la table
-    writeUserData()
+    writeUserData();
+    renderTable();
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -304,11 +314,11 @@ function deleteRow(index) {
  * @throws {Error}
  */
 function validerSaisie(saisie) {
-    let saisieRegExp = new RegExp("[a-zA-Zçàéèê0-9._-]{2,}")
+    let saisieRegExp = new RegExp("[a-zA-Zçàéèê0-9._-]{2,}");
     if (!saisieRegExp.test(saisie)) {
-        throw new Error("Veuillez à bien remplir le formulaire.")
+        throw new Error("Veuillez à bien remplir le formulaire.");
     }else{
-        return saisie
+        return saisie;
     } 
 }
 
@@ -336,8 +346,10 @@ form.addEventListener("submit", (event) => {
     event.preventDefault();
     //console.log("Add this book");
     addBookToLibrary();
-    let closeForn = document.querySelector(".btn-close"); 
-    closeForn.click();
+    //on réinitialise les filtres
+    chooseNoFilter();
+    //let closeForn = document.querySelector(".btn-close"); 
+    //closeForn.click();
     
 })
 
@@ -352,14 +364,17 @@ cancelform.addEventListener("click", () => {
 let deletebook = document.getElementById('btnsupprimer')
 deletebook.addEventListener("click", () => {
     
-    console.log("delete this book")    
-    console.log(idBook)
+    console.log("delete this book");    
+    console.log(idBook);
     
-    if (window.confirm("Souhaitez-vous vraiment supprimer ce livre ?")) {
-      deleteRow(idBook);
-    }    
-    let closeModal = document.getElementById("close-me") 
-    closeModal.click()
+    /*if (window.confirm("Souhaitez-vous vraiment supprimer ce livre ?")) {
+      deleteRow();
+    }*/
+    if (window.confirm("You need special authorisation to delete this book.")) {
+        //deleteRow();
+    }   
+    let closeModal = document.getElementById("close-me"); 
+    closeModal.click();
     
 })
 
@@ -378,12 +393,20 @@ modifier.addEventListener("click", () => {
     //console.log(idBook)
     if (window.confirm("Souhaitez-vous vraiment modifier ce livre ?")) {
       saveChanges(idBook);
+      //on récupère la position initial de l'objet dans la librairie original
+      //let bookinmylibId = myLibrary.indexOf(libTemporaire[idBook]);
+      //console.log("idBook = "+idBook +", bookinmylibId = "+bookinmylibId);
+      //console.log(libTemporaire[idBook]);
+      //on procède au remplacement de l'objet modifié dans myLibrary
+      miseAjourLib(idBook);
+      //myLibrary.splice(bookinmylibId, 1, libTemporaire[idBook]);
     }    
-    let closepopup = document.getElementById("modaleditclose") 
-    closepopup.click()
+    let closepopup = document.getElementById("modaleditclose"); 
+    closepopup.click();
     // affichage de la table mise à jour 
-    renderTable()   
-      
+    writeUserData(); 
+    renderTable();  
+    chooseNoFilter();  
 })
 
 // Ajout d'un listener à notre balise input titre du formulaire add book
@@ -421,31 +444,34 @@ let etiqkfiltr;
 let selectlefiltre = document.querySelector('#filtrage select');
 selectlefiltre.addEventListener("change", () => {
  
-    //console.log(selectlefiltre.value);
+    //console.log(selectlefiltre.value);    
     let monfiltre = document.getElementById('quelfiltre');
+    let f = document.getElementById('nomdufiltre');
     monfiltre.innerText = '';
     if(selectlefiltre.value != "---") {
-        monfiltre.innerText = `Select ${selectlefiltre.value} :`;
+        monfiltre.innerText = `Select [ ${selectlefiltre.value} ] name :`;
         globVar =  selectlefiltre.value.toLowerCase();
-    etiqkfiltr = globVar;
-    let f = document.getElementById('nomdufiltre');
-    f.innerHTML = '';
-    //const colors = ['red', 'green', 'blue', 'yellow'];
-    let val = getBookAttribute(selectlefiltre.value);
-    val.push('---');
-    //console.log(val);
-    
-    let combo = document.createElement('select');
-    f.appendChild(fillComboOptions(val, combo, selectlefiltre.value));
-    combo.addEventListener("change", () => {
-        //on fait appel à la fonction de filtrage    
-        filterMyLibrary(etiqkfiltr, combo.value);
-        // on rafraichi l'affichage de l'écran
-        renderTable(libTemporaire);        
-    })
+        etiqkfiltr = globVar;
+        //let f = document.getElementById('nomdufiltre');
+        f.innerHTML = '';
+        //const colors = ['red', 'green', 'blue', 'yellow'];
+        let val = getBookAttribute(selectlefiltre.value);
+        val.push('---');
+        //console.log(val);
+        
+        let combo = document.createElement('select');
+        f.appendChild(fillComboOptions(val, combo));
+        combo.addEventListener("change", () => {
+            //on fait appel à la fonction de filtrage    
+            filterMyLibrary(etiqkfiltr, combo.value);
+            // on rafraichi l'affichage de l'écran
+            renderTable(libTemporaire);        
+        })
     //returnlistofauthor();
     }else{ 
-        libTemporaire = myLibrary;
+        f.innerHTML = '';
+        //on fait une copie de myLibrary dans libTemporaire
+        libTemporaire = myLibrary.slice();
         renderTable(libTemporaire);
     };  
 })  
@@ -458,21 +484,23 @@ letriage.addEventListener("change", () => {
     const livresOrdonnees = Array.from(libTemporaire);
     
     let nomtri = letriage.value.toLowerCase();
-    if(nomtri == 'a_z') {
-        livresOrdonnees.sort((a, b) => a.title.localeCompare(b.title));
-    }else if(nomtri == 'z_a') {
-        livresOrdonnees.sort((a, b) => b.title.localeCompare(a.title));
-    }else if(nomtri == 'date_down') {
-        livresOrdonnees.sort((a, b) => a.pub_year - b.pub_year);
-    }else if(nomtri == 'date_up') {
-        livresOrdonnees.sort((a, b) => b.pub_year - a.pub_year);
-    }else if (nomtri == 'pages_down') {
-        livresOrdonnees.sort((a, b) => a.pages - b.pages);
-    }else if(nomtri == 'pages_up') {
-        livresOrdonnees.sort((a, b) => b.pages - a.pages)
-    }         
-    updateLibTemp(livresOrdonnees);
-    renderTable(libTemporaire);   
+    if(nomtri != '---') {    
+        if(nomtri == 'a_z') {
+            livresOrdonnees.sort((a, b) => a.title.localeCompare(b.title));
+        }else if(nomtri == 'z_a') {
+            livresOrdonnees.sort((a, b) => b.title.localeCompare(a.title));
+        }else if(nomtri == 'date_down') {
+            livresOrdonnees.sort((a, b) => a.pub_year - b.pub_year);
+        }else if(nomtri == 'date_up') {
+            livresOrdonnees.sort((a, b) => b.pub_year - a.pub_year);
+        }else if (nomtri == 'pages_down') {
+            livresOrdonnees.sort((a, b) => a.pages - b.pages);
+        }else if(nomtri == 'pages_up') {
+            livresOrdonnees.sort((a, b) => b.pages - a.pages);
+        }         
+        updateLibTemp(livresOrdonnees);
+        renderTable(libTemporaire); 
+    } else { renderTable(myLibrary) };  
 });
 
 //////////////////////////////////////////////////////////////////////////////
@@ -523,11 +551,18 @@ function formaterPrix(indice) {
 
 /**
  * Cette fonction affiche la taille de la librairie
+ * @param {*} nbr : c'est un paramètre facultatif.
+ * si il est renseigné, c'est lui qui sera pris en compte
  */
-function getLibraryLength() {    
-    let nbrlivre = libTemporaire.length;
+function getLibraryLength(nbr='aucun') {
+    let nbrlivre;
     let totalLivre = cloudLibData.length;
-    document.getElementById('nbrdelivre').innerText = `displayed_books = ${nbrlivre}/${totalLivre}`
+    if(nbr == 'aucun') {
+        nbrlivre = libTemporaire.length;
+    } else {
+        nbrlivre = nbr;
+    }  
+    document.getElementById('nbrdelivre').innerText = `displayed_books = ${nbrlivre}/${totalLivre}`;
 }
 
 /**
@@ -549,9 +584,9 @@ function getBookAttribute (myattr) {
         for(let i=0; i<objAttrBook[valattr].length; i++) {
             //on s'assure de me pas mettre dans la nouvelle
             //liste plus d'une fois le même élément    
-        if(!newTab.includes(objAttrBook[valattr][i])){
-            newTab.push(objAttrBook[valattr][i]);
-        };
+            if(!newTab.includes(objAttrBook[valattr][i])){
+                newTab.push(objAttrBook[valattr][i]);
+            };
         }
         //console.log(objAttrBook[valattr]);
         return newTab;
@@ -578,25 +613,17 @@ function changeSelectedLineColor(index) {
 /**
  * Cette fonction rempli nos combo box
  */
-function fillComboOptions(tab, comboElt, testElt='') {
+function fillComboOptions(tab, comboElt) {
     while(tab.length)
     {
         let valeur = tab.pop();
         let opt;
-        //console.log("contenu: "+testElt);
-        if(testElt == "genre") {     
-            if(valeur == '---') {
-                opt = new Option('---', '---', true, true);
-            }else{
-                opt = new Option(genreLiteraire[valeur], genreLiteraire[valeur], false, false);
-            }       
-        }else{
-            if(valeur == '---') {
+        //console.log("contenu: "+testElt);        
+        if(valeur == '---') {
             opt = new Option(valeur, valeur, true, true);
-            }else{
-                opt = new Option(valeur, valeur, false, false);
-            }
-        }            
+        }else{
+            opt = new Option(valeur, valeur, false, false);
+        }                   
         comboElt.options[comboElt.options.length] = opt;
     }
     return comboElt;
@@ -605,14 +632,14 @@ function fillComboOptions(tab, comboElt, testElt='') {
 /**
  * Cette fonction va se chargée des opérations de filtrage des livres
  * en fonction des arguments qui lui seront passés en paramètre
- * @param {*} filtr 
- * @param {*} nomfiltr 
+ * @param {*} filtr : le type de filtre choisie
+ * @param {*} nomfiltr : le sous type de filtre choisie
  */
 function filterMyLibrary(filtr, nomfiltr) {
     if(filtr != "---") {  
         libTemporaire = [];
         if(filtr == "available") { filtr = "instock" };
-        if(filtr == "genre") { nomfiltr = reverseGreLite[nomfiltr] };
+        //if(filtr == "genre") { nomfiltr = reverseGreLite[nomfiltr] };
         for(let i=0; i<myLibrary.length; i++) {
             if(myLibrary[i][filtr] == nomfiltr){
             //console.log("point test : rouge");
@@ -634,6 +661,79 @@ function updateLibTemp(newtab) {
         libTemporaire.push(newtab[i]);
     }  
 }
+
+/**
+ * Cette fonction permet da réinitialisation des filtres et tri
+ * à chaque fois que l'on affiche l'intégralité de la librairie
+ */
+function chooseNoFilter() {
+    document.querySelector('#triage select').value = ('---');
+    document.querySelector('#filtrage select').value = ('---');
+    document.getElementById('quelfiltre').innerText = '';
+    document.getElementById('nomdufiltre').innerHTML = '';
+}
+
+/**
+ * Cette fonction permet de mettre à jour en temps réel l'affichage de la 
+ * table des livres si le filtre available est activé...
+ * @param {number} j : index du livre donc la disponibilité vient de changer
+ */
+function realTimeUpdated(livre) { 
+    let namef = document.querySelector('#nomdufiltre select').value;
+    if(namef == 'Yes') {
+        //for (let index = 0; index < myLibrary.length; index++)
+        if(livre.instock.toLowerCase() == 'yes' ) {
+            return livre;
+        } 
+    } else {
+        if(livre.instock.toLowerCase() == 'no' ) {
+            return livre;
+        } 
+    } 
+}
+
+/**
+ * Cette fonction fait une mise à jour de myLibrary en fonction
+ * de la modification apporter à un livre donné.
+ * @param {number} k : indice du livre manipulé
+ */
+function miseAjourLib(k) {
+    const newlibrary = [];
+    for (let index = 0; index < myLibrary.length; index++) {
+        if(myLibrary[index].title != libTemporaire[k].title) {
+            newlibrary.push(myLibrary[index]);
+        } else {
+            newlibrary.push(libTemporaire[k]);
+        }
+    }
+    myLibrary = [];
+    //copie
+    myLibrary = newlibrary.slice();
+    writeUserData();
+}
+
+/**
+ * Cette fonction va nous permettre de sauvegarder les données
+ * dans le localStorage c'est à dire sur la machine de l'utilisateur
+ */
+function syncLocalStorage() {
+    //transformation des livres en JSON
+    const livres = JSON.stringify(myLibrary);
+    //stockage des données dans le localStorage
+    window.localStorage.setItem("livres", livres); 
+}
+
+/**
+ * Cette fonction permet de récupérer les données stockées 
+ * en machine.
+ */
+function readLocalStorage() {   
+    //on récupère les livres dans le localStorage
+    mylibStorage = window.localStorage.getItem("livres");
+    //on formate les données dans leur format d'origine
+    mylibStorage = JSON.parse(mylibStorage); 
+    //renderTable(mylibStorage);   
+  }
 
 ///////////////////////////////////////////////////////////
 // Example starter JavaScript for disabling form submissions 

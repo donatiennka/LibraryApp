@@ -59,6 +59,7 @@
                 <table class="tables caption-top">
                     <caption>List of books</caption>
                     <tr>
+                        <td>N°</td>
                         <td>title</td>
                         <td>author</td>
                         <td>pages</td>
@@ -109,46 +110,47 @@
         <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Add a new book ?</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">Add a new book ?<br>
+                    <em>The fields with asterisks [*] are mandatory.</em></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form class="needs-validation" novalidate>                                                           
                         <div class="book-title book-details">
-                            <label for="title" class="form-label">Title</label>
+                            <label for="title" class="form-label">Title [*]</label>
                             <input type="text" name="title" class="form-control input-requered" id="title" required> 
                         </div>
                         <div class="book-author book-details">
-                            <label for="author" class="form-label">Author</label>
+                            <label for="author" class="form-label">Author [*]</label>
                             <input type="text" name="author" class="form-control input-requered" id="author" required>
                         </div>
                         <div class="book-genre book-details">
                             <label for="genre" class="form-label">Genre</label>
                             <select class="form-select" aria-label="Default select example" id="genre">
                                 <option selected>---</option>
-                                <option value="1">Biographie</option>
-                                <option value="2">Fantastique</option>
-                                <option value="3">Historique</option>
-                                <option value="4">Policier</option>
-                                <option value="5">Science-Fiction</option>
-                                <option value="6">Conte philosophique</option>
-                                <option value="7">Comédie</option>
-                                <option value="8">Littéraire</option>
-                                <option value="9">Scientifique</option>
-                                <option value="10">Autre</option>
+                                <option value="Biographie">Biographie</option>
+                                <option value="Fantastique">Fantastique</option>
+                                <option value="Historique">Historique</option>
+                                <option value="Policier">Policier</option>
+                                <option value="Science-Fiction">Science-Fiction</option>
+                                <option value="Conte philosophique">Conte philosophique</option>
+                                <option value="Comédie">Comédie</option>
+                                <option value="Littéraire">Littéraire</option>
+                                <option value="Scientifique">Scientifique</option>
+                                <option value="Autre">Autre</option>
                             </select>            
                         </div>
                         <div class="book-editor book-details">
-                            <label for="editor" class="form-label">Editor</label>
+                            <label for="editor" class="form-label">Editor [*]</label>
                             <input type="text" name="editor" class="form-control input-requered" id="editor" required>
                         </div>
                         <div class="book-pages book-details">
-                            <label for="pages" class="form-label">Pages</label>
+                            <label for="pages" class="form-label">Pages [*]</label>
                             <input type="number" name="pages" class="form-control input-requered" id="pages" required>
                         </div>
                         <div class="book-year book-details">
-                            <label for="publication-year" class="form-label">publication year</label>
-                            <input type="number" name="publication-year" class="form-control" id="publication-year">
+                            <label for="publication-year" class="form-label">publication year [*]</label>
+                            <input type="number" name="publication-year" class="form-control" id="publication-year" required>
                         </div>
                         <div class="book-resume book-details">
                             <label for="resume" class="form-label">Resume</label>        
@@ -275,16 +277,16 @@ ipsum, a elementum nisi. Mauris non erat eu erat placerat convallis.
                         <div class="book-genre editFormModel">                                
                             <select class="form-select" aria-label="Default select example" id="editgenre">
                                 <option selected>---</option>
-                                <option value="1">Biographie</option>
-                                <option value="2">Fantastique</option>
-                                <option value="3">Historique</option>
-                                <option value="4">Policier</option>
-                                <option value="5">Science-Fiction</option>
-                                <option value="6">Conte philosophique</option>
-                                <option value="7">Comédie</option>
-                                <option value="8">Littéraire</option>
-                                <option value="9">Scientifique</option>
-                                <option value="10">Autre</option>
+                                <option value="Biographie">Biographie</option>
+                                <option value="Fantastique">Fantastique</option>
+                                <option value="Historique">Historique</option>
+                                <option value="Policier">Policier</option>
+                                <option value="Science-Fiction">Science-Fiction</option>
+                                <option value="Conte philosophique">Conte philosophique</option>
+                                <option value="Comédie">Comédie</option>
+                                <option value="Littéraire">Littéraire</option>
+                                <option value="Scientifique">Scientifique</option>
+                                <option value="Autre">Autre</option>
                             </select>            
                         </div>
                         <div class="book-editor editFormModel">                                
@@ -300,6 +302,10 @@ ipsum, a elementum nisi. Mauris non erat eu erat placerat convallis.
                             <input type="text" name="currency-field" id="editcurrency-field" class="form-control" 
                             value="" data-type="currency" placeholder="3,485 FCFA">
                         </div>
+                        <div class="book-pub_year editFormModel">                            
+                            <input type="number" name="pub_year" class="form-control" accept=".jpg, .jpeg, .png" capture="user" 
+                            placeholder="Change publication-year here" id="editpub_year">                                
+                        </div> 
                         <div class="book-cover editFormModel">                            
                             <input type="file" name="cover-image" class="form-control" accept=".jpg, .jpeg, .png" capture="user" id="editcover-image">                                
                         </div>                        
